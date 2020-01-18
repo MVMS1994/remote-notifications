@@ -5,13 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <ListView
+        android:id="@+id/app_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@android:color/black"
-        android:text="Hello World!" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
