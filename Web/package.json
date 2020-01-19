@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "webpack-dev": "webpack-dev-server",
+    "webpack-dev": "webpack-dev-server --port 8090",
     "pulp-dev": "pulp -w build --to dist/pulp.js",
     "start": "npm-run-all -p \"pulp-dev\" \"webpack-dev\"",
     "build": "pulp build --to dist/pulp.js && webpack --mode production"

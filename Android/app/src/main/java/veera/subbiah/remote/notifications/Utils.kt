@@ -28,8 +28,7 @@ fun getInstalledPackages(context: Context): List<ListModel> {
             ListModel()
                 .setAppName(getAppName(context, app))
                 .setPackageName(app.packageName)
-                .setSelected(savedPref.contains(app.packageName))
-        )
+                .setSelected(savedPref.contains(app.packageName)))
     }
 
     arrayAppListModel.sortWith(compareBy({ !it.isSelected() }, { it.getAppName() }))

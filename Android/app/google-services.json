@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "95985728088",
+    "firebase_url": "https://remote-notifications-5931d.firebaseio.com",
+    "project_id": "remote-notifications-5931d",
+    "storage_bucket": "remote-notifications-5931d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95985728088:android:573d0c5cfcec43ecd8282d",
+        "android_client_info": {
+          "package_name": "veera.subbiah.remote.notifications"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95985728088-lgf7ro67k8bssh1k07ifjhdm4cnqdoad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtdaqPeBdbvmKmlKYy7bUUzX2D_32t_SY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95985728088-lgf7ro67k8bssh1k07ifjhdm4cnqdoad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

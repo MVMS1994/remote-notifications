@@ -12,7 +12,8 @@
     "purescript-effect": "^2.0.1",
     "purescript-react": "^8.0.0",
     "purescript-aff": "^5.1.2",
-    "purescript-transformers": "^4.2.0"
+    "purescript-transformers": "^4.2.0",
+    "purescript-web-html": "^2.3.0"
   },
   "devDependencies": {
     "purescript-psci-support": "^4.0.0"
