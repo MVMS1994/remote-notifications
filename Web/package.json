@@ -1,0 +1,31 @@
+{
+  "name": "remote-notifications",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "webpack-dev": "webpack-dev-server",
+    "pulp-dev": "pulp -w build --to dist/pulp.js",
+    "start": "npm-run-all -p \"pulp-dev\" \"webpack-dev\"",
+    "build": "pulp build --to dist/pulp.js && webpack --mode production"
+  },
+  "author": "Veera",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^3.4.2",
+    "file-loader": "^5.0.2",
+    "npm-run-all": "^4.1.5",
+    "pulp": "^13.0.0",
+    "purescript": "^0.13.6",
+    "purs-loader": "^3.7.1",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  },
+  "dependencies": {
+    "firebase": "^7.7.0",
+    "ramda": "^0.26.1",
+    "react": "^16.12.0"
+  }
+}
