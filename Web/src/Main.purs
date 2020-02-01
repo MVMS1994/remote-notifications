@@ -2,19 +2,16 @@ module Main where
 
 import Prelude
 import Constants (sFIREBASE_TOKEN)
-import Control.Monad.Except (runExceptT)
 import Data.Either (Either(..))
 import Effect (Effect)
-import Effect.Aff (launchAff_, launchAff, joinFiber)
-import Effect.Class (liftEffect)
+import Effect.Aff (runAff_)
 import Effect.Console (log, error)
-import Firebase (initializeApp, initMessaging, onTokenRefresh, requestPermission, saveToken, saveTokenEff, onMessage)
+import Firebase (initMessaging, onTokenRefresh, requestPermission, saveToken, saveTokenEff, onMessage)
 import Types (Free, FIREBASE, FIREBASE_PERMISSION(..))
-import Utils (liftLeft, liftRight, loadS)
+import Utils (liftLeft, loadS)
 
 initFirebase :: Free FIREBASE
 initFirebase = do
-  initializeApp
   result <- requestPermission
   case result of
     GRANTED -> do
@@ -28,17 +25,13 @@ initFirebase = do
 start :: Free Unit
 start = do
   messaging <- initFirebase
-  token <- loadS sFIREBASE_TOKEN ""
-  onMessage messaging log
-  liftRight $ log token
+  token <- loadS sFIREBASE_TOKEN "NOT FOUND"
+  onMessage messaging (log <<< show)
 
 
 main :: Effect Unit
-main = launchAff_ $ do
-  fiber  <- liftEffect $ launchAff $ runExceptT start
-  result <- joinFiber fiber
+main = runAff_ (\result ->
   case result of
-    Left e  -> liftEffect $ error e
-    Right r -> pure unit
-
-
+    Left e  -> error $ show e
+    Right r -> log "done"
+) start
