@@ -14,7 +14,8 @@ import Types (Free, GoogleUser)
 import Utils (loadS, liftRight, liftLeft)
 
 baseURL :: String
-baseURL = "http://localhost:5000/remote-notifications-5931d/us-central1"
+baseURL = "https://us-central1-remote-notifications-5931d.cloudfunctions.net"
+-- baseURL = "http://localhost:5000/remote-notifications-5931d/us-central1"
 
 defaultConfig :: Array A.Config
 defaultConfig =
