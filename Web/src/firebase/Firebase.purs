@@ -1,19 +1,15 @@
 module Firebase where
 
 import Prelude
-import Constants (sFIREBASE_TOKEN)
+import Constants as C
 import Data.Either(Either(..))
 import Effect (Effect)
-import Effect.Aff (Aff, makeAff, nonCanceler, runAff_)
-import Effect.Console (error) as Console
+import Effect.Aff (makeAff, nonCanceler)
 import Effect.Exception (error)
 import Foreign (Foreign)
 import Foreign.Generic (decode)
 import Types (Free, FIREBASE, FIREBASE_PERMISSION(..), Notification)
-import Utils (liftRight, hoistEff)
-import Web.HTML (window)
-import Web.HTML.Window (localStorage)
-import Web.Storage.Storage (setItem)
+import Utils (liftRight, saveS, hoistEff)
 
 foreign import _initMessaging      :: Effect FIREBASE
 foreign import _requestPermission  :: (FIREBASE_PERMISSION -> Effect Unit) -> FIREBASE_PERMISSION -> FIREBASE_PERMISSION -> Effect FIREBASE_PERMISSION
@@ -27,24 +23,16 @@ requestPermission = makeAff (\cb -> _requestPermission (Right >>> cb) GRANTED DE
 initMessaging :: Free FIREBASE
 initMessaging = liftRight $ _initMessaging
 
-getToken :: FIREBASE -> Aff String
+getToken :: FIREBASE -> Free String
 getToken messaging = makeAff (\cb -> _getToken (Right >>> cb) (error >>> Left >>> cb) messaging *> pure nonCanceler)
 
 onTokenRefresh :: FIREBASE -> Effect Unit -> Free Unit
 onTokenRefresh messaging cb = liftRight $ _onTokenRefresh cb messaging
 
-onMessage :: FIREBASE -> (Notification -> Effect Unit) -> Effect Unit
-onMessage messaging cb = _onMessage (\f -> cb =<< (hoistEff $ decode f)) messaging
-
-
-saveTokenEff :: FIREBASE -> Effect Unit
-saveTokenEff messaging = do
-  s <- localStorage =<< window
-  runAff_ (\result -> do
-    case result of
-      Right resp -> setItem sFIREBASE_TOKEN resp s
-      Left error -> Console.error $ show error
-  ) (getToken messaging)
+onMessage :: FIREBASE -> (Notification -> Effect Unit) -> Free Unit
+onMessage messaging cb = liftRight $ _onMessage (\f -> cb =<< (hoistEff $ decode f)) messaging
 
 saveToken :: FIREBASE -> Free Unit
-saveToken = liftRight <<< saveTokenEff
+saveToken messaging = do
+  token <- getToken messaging
+  saveS C.sFIREBASE_TOKEN token

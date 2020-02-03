@@ -1,48 +1,47 @@
 module Main where
 
 import Prelude
-import Auth (initAuthListener, _initSignIn)
-import Constants (sAUTH_PAYLOAD)
-import Data.Maybe (Maybe(..))
-import Data.Either (Either(..))
-import Data.Traversable (traverse)
+import Auth (initAuthListener, initSignIn)
+import Backend as API
+import Constants as C
+import Data.Maybe (Maybe(..), maybe)
+import Data.Newtype (unwrap)
 import Effect (Effect)
-import Effect.Aff (runAff_)
-import Effect.Console (log, error)
-import Firebase (initMessaging, onTokenRefresh, requestPermission, saveToken, saveTokenEff, onMessage)
+import Effect.Console as Console
+import Firebase (initMessaging, onTokenRefresh, requestPermission, saveToken, onMessage)
 import RN.UI as UI
 import Reducers (rootReducer)
-import Types (Free, FIREBASE, FIREBASE_PERMISSION(..), GoogleUser(..), GoogleUserProfile, Notification)
-import Utils (liftLeft, deleteSEff, saveSEff)
+import Types (Free, FIREBASE, FIREBASE_PERMISSION(..), GoogleUser(..), Notification)
+import Utils (liftLeft, liftRight, deleteS, saveS, runFree_, forkFree)
 
 --==================================== LISTENERS ====================================--
 
 authListener :: FIREBASE -> GoogleUser -> Effect Unit
-authListener messaging (GoogleUser _user) = do
+authListener messaging u@(GoogleUser _user) = runFree_ do
   case _user of
     Nothing   -> cleanUPFlow
-    Just user -> initFlow messaging user
-
-
-cleanUPFlow :: Effect Unit
-cleanUPFlow = do
-  UI.updateSignInStatus "SIGNED_OUT" ""
-  _ <- traverse deleteSEff [sAUTH_PAYLOAD]
-  _initSignIn
-
-
-initFlow :: FIREBASE -> GoogleUserProfile -> Effect Unit
-initFlow messaging user = do
-  UI.updateSignInStatus "SIGNED_IN" user.displayName
-  saveSEff sAUTH_PAYLOAD $ show user
-  onMessage messaging onNewMessage
-
+    Just user -> initFlow messaging u
 
 onNewMessage :: Notification -> Effect Unit
-onNewMessage = log <<< show
-
+onNewMessage = runFree_ <<< liftRight <<< Console.log <<< show
 
 --==================================== =========== ====================================--
+
+cleanUPFlow :: Free Unit
+cleanUPFlow = do
+  UI.updateSignInStatus "SIGNED_OUT" ""
+  deleteS C.sAUTH_PAYLOAD
+  initSignIn
+
+
+initFlow :: FIREBASE -> GoogleUser -> Free Unit
+initFlow messaging user = do
+  let name = maybe "" _.displayName (unwrap user)
+  UI.updateSignInStatus "SIGNED_IN" name
+  saveS C.sAUTH_PAYLOAD user
+  onMessage messaging onNewMessage
+  API.registerPushToken
+
 
 initFirebase :: Free FIREBASE
 initFirebase = do
@@ -50,10 +49,11 @@ initFirebase = do
   case result of
     GRANTED -> do
       msg <- initMessaging
-      saveToken msg
-      onTokenRefresh msg (saveTokenEff msg)
+      _   <- forkFree $ saveToken msg
+      onTokenRefresh msg (runFree_ $ saveToken msg)
       pure msg
     DENIED  -> liftLeft "Sorry no permission. no webpage."
+
 
 start :: Free Unit
 start = do
@@ -61,9 +61,6 @@ start = do
   messaging <- initFirebase
   initAuthListener $ authListener messaging
 
+
 main :: Effect Unit
-main = runAff_ (\result ->
-  case result of
-    Left e  -> error $ show e
-    Right r -> log "done"
-) start
+main = runFree_ start

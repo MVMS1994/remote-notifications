@@ -11,7 +11,7 @@ foreign import getStore :: Effect ReactStore
 initUI :: AppReducers -> Free Unit
 initUI = liftRight <<< _initUI
 
-updateSignInStatus :: String -> String -> Effect Unit
-updateSignInStatus _type userName = do
+updateSignInStatus :: String -> String -> Free Unit
+updateSignInStatus _type userName = liftRight $ do
   store <- getStore
   store.dispatch {"type": _type, userName}
