@@ -1,17 +1,16 @@
 const path = require('path');
+const BAP  = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = {
-  mode: 'development',
-  entry: './dist/pulp.js',
+var baseConfig = {
+  entry: {
+    app: './dist/pulp.js',
+    ui: './react/index.js'
+  },
   output: {
-    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist'
-  },
-  stats: 'errors-only',
+  plugins: [],
   module: {
     rules: [{
       test: /\.css$/,
@@ -22,6 +21,38 @@ module.exports = {
     }, {
       test: /\.(woff|woff2|eot|ttf|otf)$/,
       use: ['file-loader']
+    }, {
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      use: {
+        loader: "babel-loader"
+      }
     }]
   }
 };
+
+
+module.exports = (env) => {
+  if (env == "dev") {
+    baseConfig["devServer"] = {
+      port: 8090,
+      contentBase: './dist',
+      disableHostCheck: true
+    }
+    baseConfig["mode"]    = 'development'
+    baseConfig["stats"]   = 'errors-only'
+    baseConfig["devtool"] = 'inline-source-map'
+  } else {
+    baseConfig["optimization"] = {
+      usedExports: true,
+      minimize: true,
+      minimizer: [
+        new TerserPlugin()
+      ]
+    }
+    baseConfig["mode"]    = "production"
+    baseConfig["devtool"] = "none"
+  }
+
+  return baseConfig;
+}

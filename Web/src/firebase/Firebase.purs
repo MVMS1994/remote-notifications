@@ -33,8 +33,8 @@ getToken messaging = makeAff (\cb -> _getToken (Right >>> cb) (error >>> Left >>
 onTokenRefresh :: FIREBASE -> Effect Unit -> Free Unit
 onTokenRefresh messaging cb = liftRight $ _onTokenRefresh cb messaging
 
-onMessage :: FIREBASE -> (Notification -> Effect Unit) -> Free Unit
-onMessage messaging cb = liftRight $ _onMessage (\f -> cb =<< (hoistEff $ decode f)) messaging
+onMessage :: FIREBASE -> (Notification -> Effect Unit) -> Effect Unit
+onMessage messaging cb = _onMessage (\f -> cb =<< (hoistEff $ decode f)) messaging
 
 
 saveTokenEff :: FIREBASE -> Effect Unit

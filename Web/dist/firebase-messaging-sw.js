@@ -31,7 +31,7 @@ registerOnClick();
 messaging.setBackgroundMessageHandler((payload) => {
   payload.data.priority = payload.priority || "normal";
   var options = {
-    ...payload.data,
+    body: payload.data.body,
     data: payload.data
   }
   return self.registration.showNotification(payload.data.title, options);
