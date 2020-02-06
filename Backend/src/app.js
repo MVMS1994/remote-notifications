@@ -10,7 +10,7 @@ admin.initializeApp({
 
 const db = admin.database();
 
-var validatePushToken = function(data) {
+let validatePushToken = function(data) {
   if(data.uid && data.firebaseToken) {
     return true;
   }
@@ -18,11 +18,8 @@ var validatePushToken = function(data) {
 }
 
 exports["triggerMessage"] = async (body, query, headers) => {
-  const LOCALHOST = "fYmUIERQbiFqP9E2Dkx-Xk:APA91bHcbwic4dtrwGPTNR81w9w4gF5rUZO9HX8PyjgqyjhQYte9vGHXiOV9cB5DU5UkDArkhV4LTti8dF7kE7JwsuSHFt3zl5rcZAW9tYmUmR5MmzOxxOXa1lA-rQlLQhIOruNLTMcH";
-  const REMOTE = "fZ_dilLVgo04gg27CRXsmU:APA91bFeY1rY8ze2rZLLenmjbWeek017U4Odt5-jM-sJVUHBl90ZsyIzgjK8RTj5YHp2ZE545f0Fupcwpqo_p1dMY5kKEeuopDsL71oUMnksnabUC09J1yjeVUi3Xin-Sk4wxTITytzx";
-
-  var data = body.data || {}
-  var uid  = headers["x-uid"];
+  let data = body.data || {}
+  let uid  = headers["x-uid"];
 
   if(!uid) {
     return {
@@ -33,19 +30,35 @@ exports["triggerMessage"] = async (body, query, headers) => {
     }
   }
 
-  var registrationTokens = [ LOCALHOST, REMOTE ];
-  var message = {
+  let tokens = await db.ref("users/" + uid + "/tokens").once("value");
+  let registrationTokens = [];
+  if (tokens.exists()) {
+    tokens.forEach(function(item) {
+      if (item.val()) {
+        registrationTokens.push(item.key);
+      }
+    });
+  }
+
+  if (registrationTokens.length == 0) {
+    return {
+      code: 404,
+      data: {
+        message: "No Tokens found for user."
+      }
+    }
+  }
+
+  data.actions = JSON.stringify(data.actions);
+  let message = {
     data: {
-      source: data.source,
-      title: data.title,
-      body: data.smallText,
-      bigText: data.bigText,
-      actions: JSON.stringify(data.actions)
+      ...data,
+      body: data.smallText
     },
     tokens: registrationTokens
   };
 
-  var response = await admin.messaging().sendMulticast(message);
+  let response = await admin.messaging().sendMulticast(message);
   return {
     code: 200,
     data: response
@@ -95,6 +108,8 @@ exports["savePushToken"] = async (data, query, headers) => {
 
   return {
     code: 200,
-    data: "ok"
+    data: {
+      message: "Save Successful."
+    }
   };
 }

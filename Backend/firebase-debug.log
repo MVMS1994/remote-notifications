@@ -1,0 +1,366 @@
+[debug] [2020-02-06T14:00:22.126Z] ----------------------------------------------------------------------
+[debug] [2020-02-06T14:00:22.130Z] Command:       /Users/vssubbia/.nvm/versions/node/v10.13.0/bin/node /Users/vssubbia/.nvm/versions/node/v10.13.0/bin/firebase serve --only functions
+[debug] [2020-02-06T14:00:22.131Z] CLI Version:   7.12.1
+[debug] [2020-02-06T14:00:22.131Z] Platform:      darwin
+[debug] [2020-02-06T14:00:22.131Z] Node Version:  v10.13.0
+[debug] [2020-02-06T14:00:22.136Z] Time:          Thu Feb 06 2020 19:30:22 GMT+0530 (India Standard Time)
+[debug] [2020-02-06T14:00:22.136Z] ----------------------------------------------------------------------
+[debug] [2020-02-06T14:00:22.136Z] 
+[debug] [2020-02-06T14:00:22.157Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-02-06T14:00:22.158Z] > authorizing via signed-in user
+[debug] [2020-02-06T14:00:22.158Z] [iam] checking project remote-notifications-5931d for permissions ["firebase.projects.get"]
+[debug] [2020-02-06T14:00:22.180Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-02-06T14:00:22.180Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-02-06T14:00:22.590Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-06T14:00:22.627Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/remote-notifications-5931d:testIamPermissions  
+
+[debug] [2020-02-06T14:00:24.402Z] <<< HTTP RESPONSE 200
+[debug] [2020-02-06T14:00:24.404Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/remote-notifications-5931d  
+ 
+[debug] [2020-02-06T14:00:24.955Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: Using node@10 from host.
+[info] ✔  functions: Emulator started at http://localhost:5000
+[info] i  functions: Watching "/Users/vssubbia/Github/remote-notifications/Backend" for Cloud Functions...
+[debug] [2020-02-06T14:00:25.278Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:00:25.279Z] [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-02-06T14:00:25.279Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:00:25.280Z] [worker-~diagnostic~-bc319ce6-e0d9-4869-a9b3-519538017baa]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_64991.sock
+[debug] [2020-02-06T14:00:25.281Z] [worker-~diagnostic~-bc319ce6-e0d9-4869-a9b3-519538017baa]: BUSY
+[debug] [2020-02-06T14:00:26.021Z] [runtime-status] [64991] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:00:26.024Z] [runtime-status] [64991] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:00:26.029Z] [runtime-status] [64991] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:00:26.034Z] [runtime-status] [64991] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:00:26.036Z] [runtime-status] [64991] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[info] ✔  functions[sendMessage]: http function initialized (http://localhost:5000/remote-notifications-5931d/us-central1/sendMessage).
+[info] ✔  functions[registerPushToken]: http function initialized (http://localhost:5000/remote-notifications-5931d/us-central1/registerPushToken).
+[debug] [2020-02-06T14:00:27.048Z] [worker-~diagnostic~-bc319ce6-e0d9-4869-a9b3-519538017baa]: IDLE
+[debug] [2020-02-06T14:04:33.017Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:04:34.022Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:04:34.022Z] [worker-~diagnostic~-bc319ce6-e0d9-4869-a9b3-519538017baa]: FINISHING
+[debug] [2020-02-06T14:04:34.032Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:04:34.033Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:04:34.033Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:04:34.033Z] [worker-~diagnostic~-80264fea-3607-4857-9265-4f31317a4526]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_65959.sock
+[debug] [2020-02-06T14:04:34.033Z] [worker-~diagnostic~-80264fea-3607-4857-9265-4f31317a4526]: BUSY
+[debug] [2020-02-06T14:04:34.037Z] [worker-~diagnostic~-bc319ce6-e0d9-4869-a9b3-519538017baa]: exited
+[debug] [2020-02-06T14:04:34.037Z] [worker-~diagnostic~-bc319ce6-e0d9-4869-a9b3-519538017baa]: FINISHED
+[debug] [2020-02-06T14:04:34.482Z] [runtime-status] [65959] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:04:34.484Z] [runtime-status] [65959] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:04:34.487Z] [runtime-status] [65959] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:04:34.488Z] [runtime-status] [65959] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:04:34.489Z] [runtime-status] [65959] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:04:34.875Z] [worker-~diagnostic~-80264fea-3607-4857-9265-4f31317a4526]: IDLE
+[debug] [2020-02-06T14:04:42.450Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-02-06T14:04:42.450Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-02-06T14:04:42.451Z] Accepted request POST /remote-notifications-5931d/us-central1/sendMessage --> sendMessage
+[debug] [2020-02-06T14:04:42.451Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:04:42.459Z] [worker-pool] addWorker(sendMessage)
+[debug] [2020-02-06T14:04:42.460Z] [worker-pool] Adding worker with key sendMessage, total=1
+[debug] [2020-02-06T14:04:42.460Z] [worker-pool] submitWork(triggerId=sendMessage)
+[debug] [2020-02-06T14:04:42.460Z] [worker-sendMessage-11e91b61-cb0e-4114-9ddd-b5d6dc8fcaaf]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_65993.sock
+[debug] [2020-02-06T14:04:42.460Z] [worker-sendMessage-11e91b61-cb0e-4114-9ddd-b5d6dc8fcaaf]: BUSY
+[debug] [2020-02-06T14:04:42.879Z] [runtime-status] [65993] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:04:42.881Z] [runtime-status] [65993] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:04:42.884Z] [runtime-status] [65993] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:04:42.885Z] [runtime-status] [65993] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:04:42.886Z] [runtime-status] [65993] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:04:43.298Z] [runtime-status] [65993] Trigger "sendMessage" has been found, beginning invocation!
+[info] i  functions: Beginning execution of "sendMessage"
+[debug] [2020-02-06T14:04:43.299Z] [runtime-status] [65993] triggerDefinition {"httpsTrigger":{},"name":"sendMessage","entryPoint":"sendMessage"}
+[debug] [2020-02-06T14:04:43.299Z] [runtime-status] [65993] Running sendMessage in mode HTTPS
+[debug] [2020-02-06T14:04:43.308Z] [runtime-status] [65993] Attempting to listen to socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_65993.sock
+[debug] [2020-02-06T14:04:43.312Z] [functions] Runtime ready! Sending request!
+[debug] [2020-02-06T14:04:43.404Z] [runtime-status] [65993] Ephemeral server handling POST request
+[debug] [2020-02-06T14:04:43.411Z] [runtime-status] [65993] Ephemeral server survived.
+[info] >  (node:65993) UnhandledPromiseRejectionWarning: ReferenceError: LOCALHOST is not defined
+[info] >      at Object.exports.triggerMessage (/Users/vssubbia/Github/remote-notifications/Backend/src/app.js:43:30)
+[info] >      at process._tickCallback (internal/process/next_tick.js:68:7)
+[info] >  (node:65993) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+[info] >  (node:65993) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[info] i  functions: Finished "sendMessage" in ~1s
+[debug] [2020-02-06T14:04:45.296Z] [worker-sendMessage-11e91b61-cb0e-4114-9ddd-b5d6dc8fcaaf]: IDLE
+[debug] [2020-02-06T14:04:45.296Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-02-06T14:05:01.449Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:05:02.454Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:05:02.454Z] [worker-~diagnostic~-80264fea-3607-4857-9265-4f31317a4526]: FINISHING
+[debug] [2020-02-06T14:05:02.454Z] [worker-pool] Shutting down IDLE worker (sendMessage)
+[debug] [2020-02-06T14:05:02.455Z] [worker-sendMessage-11e91b61-cb0e-4114-9ddd-b5d6dc8fcaaf]: FINISHING
+[debug] [2020-02-06T14:05:02.465Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:05:02.466Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:05:02.466Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:05:02.466Z] [worker-~diagnostic~-b5dd5b6b-29e1-4088-92ec-0a17afe47d2a]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66060.sock
+[debug] [2020-02-06T14:05:02.466Z] [worker-~diagnostic~-b5dd5b6b-29e1-4088-92ec-0a17afe47d2a]: BUSY
+[debug] [2020-02-06T14:05:02.471Z] [worker-~diagnostic~-80264fea-3607-4857-9265-4f31317a4526]: exited
+[debug] [2020-02-06T14:05:02.471Z] [worker-~diagnostic~-80264fea-3607-4857-9265-4f31317a4526]: FINISHED
+[debug] [2020-02-06T14:05:02.471Z] [worker-sendMessage-11e91b61-cb0e-4114-9ddd-b5d6dc8fcaaf]: exited
+[debug] [2020-02-06T14:05:02.472Z] [worker-sendMessage-11e91b61-cb0e-4114-9ddd-b5d6dc8fcaaf]: FINISHED
+[debug] [2020-02-06T14:05:02.789Z] [runtime-status] [66060] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:05:02.790Z] [runtime-status] [66060] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:05:02.793Z] [runtime-status] [66060] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:05:02.794Z] [runtime-status] [66060] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:02.795Z] [runtime-status] [66060] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:03.131Z] [worker-~diagnostic~-b5dd5b6b-29e1-4088-92ec-0a17afe47d2a]: IDLE
+[debug] [2020-02-06T14:05:05.872Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:05:06.876Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:05:06.876Z] [worker-~diagnostic~-b5dd5b6b-29e1-4088-92ec-0a17afe47d2a]: FINISHING
+[debug] [2020-02-06T14:05:06.877Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:05:06.877Z] [worker-pool] Cleaned up workers for sendMessage: 1 --> 0
+[debug] [2020-02-06T14:05:06.884Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:05:06.886Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:05:06.886Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:05:06.886Z] [worker-~diagnostic~-83c0277d-454b-4d3b-ac01-7efeeb7c96fc]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66079.sock
+[debug] [2020-02-06T14:05:06.886Z] [worker-~diagnostic~-83c0277d-454b-4d3b-ac01-7efeeb7c96fc]: BUSY
+[debug] [2020-02-06T14:05:06.888Z] [worker-~diagnostic~-b5dd5b6b-29e1-4088-92ec-0a17afe47d2a]: exited
+[debug] [2020-02-06T14:05:06.888Z] [worker-~diagnostic~-b5dd5b6b-29e1-4088-92ec-0a17afe47d2a]: FINISHED
+[debug] [2020-02-06T14:05:07.262Z] [runtime-status] [66079] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:05:07.264Z] [runtime-status] [66079] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:05:07.267Z] [runtime-status] [66079] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:05:07.268Z] [runtime-status] [66079] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:07.269Z] [runtime-status] [66079] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:07.667Z] [worker-~diagnostic~-83c0277d-454b-4d3b-ac01-7efeeb7c96fc]: IDLE
+[debug] [2020-02-06T14:05:09.117Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:05:10.121Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:05:10.121Z] [worker-~diagnostic~-83c0277d-454b-4d3b-ac01-7efeeb7c96fc]: FINISHING
+[debug] [2020-02-06T14:05:10.122Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:05:10.130Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:05:10.130Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:05:10.130Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:05:10.130Z] [worker-~diagnostic~-61531457-ec73-4859-b11e-1f5af85c2215]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66088.sock
+[debug] [2020-02-06T14:05:10.131Z] [worker-~diagnostic~-61531457-ec73-4859-b11e-1f5af85c2215]: BUSY
+[debug] [2020-02-06T14:05:10.132Z] [worker-~diagnostic~-83c0277d-454b-4d3b-ac01-7efeeb7c96fc]: exited
+[debug] [2020-02-06T14:05:10.132Z] [worker-~diagnostic~-83c0277d-454b-4d3b-ac01-7efeeb7c96fc]: FINISHED
+[debug] [2020-02-06T14:05:10.455Z] [runtime-status] [66088] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:05:10.457Z] [runtime-status] [66088] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:05:10.459Z] [runtime-status] [66088] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:05:10.461Z] [runtime-status] [66088] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:10.462Z] [runtime-status] [66088] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:10.815Z] [worker-~diagnostic~-61531457-ec73-4859-b11e-1f5af85c2215]: IDLE
+[debug] [2020-02-06T14:05:16.709Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:05:17.714Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:05:17.715Z] [worker-~diagnostic~-61531457-ec73-4859-b11e-1f5af85c2215]: FINISHING
+[debug] [2020-02-06T14:05:17.715Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:05:17.724Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:05:17.725Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:05:17.725Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:05:17.725Z] [worker-~diagnostic~-9508c3f5-19f9-42fc-8cdb-42d764836c7b]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66118.sock
+[debug] [2020-02-06T14:05:17.725Z] [worker-~diagnostic~-9508c3f5-19f9-42fc-8cdb-42d764836c7b]: BUSY
+[debug] [2020-02-06T14:05:17.726Z] [worker-~diagnostic~-61531457-ec73-4859-b11e-1f5af85c2215]: exited
+[debug] [2020-02-06T14:05:17.726Z] [worker-~diagnostic~-61531457-ec73-4859-b11e-1f5af85c2215]: FINISHED
+[debug] [2020-02-06T14:05:18.070Z] [runtime-status] [66118] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:05:18.072Z] [runtime-status] [66118] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:05:18.075Z] [runtime-status] [66118] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:05:18.076Z] [runtime-status] [66118] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:18.077Z] [runtime-status] [66118] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:18.452Z] [worker-~diagnostic~-9508c3f5-19f9-42fc-8cdb-42d764836c7b]: IDLE
+[debug] [2020-02-06T14:05:22.905Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-02-06T14:05:22.906Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-02-06T14:05:22.906Z] Accepted request POST /remote-notifications-5931d/us-central1/sendMessage --> sendMessage
+[debug] [2020-02-06T14:05:22.906Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:05:22.914Z] [worker-pool] addWorker(sendMessage)
+[debug] [2020-02-06T14:05:22.914Z] [worker-pool] Adding worker with key sendMessage, total=1
+[debug] [2020-02-06T14:05:22.914Z] [worker-pool] submitWork(triggerId=sendMessage)
+[debug] [2020-02-06T14:05:22.914Z] [worker-sendMessage-43f2462b-29b0-43d4-9f2c-b418a7b81225]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66141.sock
+[debug] [2020-02-06T14:05:22.914Z] [worker-sendMessage-43f2462b-29b0-43d4-9f2c-b418a7b81225]: BUSY
+[debug] [2020-02-06T14:05:23.853Z] [runtime-status] [66141] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:05:23.858Z] [runtime-status] [66141] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:05:23.867Z] [runtime-status] [66141] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:05:23.868Z] [runtime-status] [66141] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:23.870Z] [runtime-status] [66141] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:05:24.502Z] [runtime-status] [66141] Trigger "sendMessage" has been found, beginning invocation!
+[info] i  functions: Beginning execution of "sendMessage"
+[debug] [2020-02-06T14:05:24.511Z] [runtime-status] [66141] triggerDefinition {"httpsTrigger":{},"name":"sendMessage","entryPoint":"sendMessage"}
+[debug] [2020-02-06T14:05:24.512Z] [runtime-status] [66141] Running sendMessage in mode HTTPS
+[debug] [2020-02-06T14:05:24.524Z] [runtime-status] [66141] Attempting to listen to socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66141.sock
+[debug] [2020-02-06T14:05:24.538Z] [functions] Runtime ready! Sending request!
+[debug] [2020-02-06T14:05:24.676Z] [runtime-status] [66141] Ephemeral server handling POST request
+[debug] [2020-02-06T14:05:24.686Z] [runtime-status] [66141] Ephemeral server survived.
+[info] >  (node:66141) UnhandledPromiseRejectionWarning: Error: tokens must be a non-empty array
+[info] >      at FirebaseMessagingError.FirebaseError [as constructor] (/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/utils/error.js:42:28)
+[info] >      at FirebaseMessagingError.PrefixedFirebaseError [as constructor] (/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/utils/error.js:88:28)
+[info] >      at new FirebaseMessagingError (/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/utils/error.js:254:16)
+[info] >      at Messaging.sendMulticast (/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/messaging/messaging.js:293:19)
+[info] >      at Object.exports.triggerMessage (/Users/vssubbia/Github/remote-notifications/Backend/src/app.js:51:42)
+[info] >      at process._tickCallback (internal/process/next_tick.js:68:7)
+[info] >  (node:66141) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+[info] >  (node:66141) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[info] i  functions: Finished "sendMessage" in ~1s
+[debug] [2020-02-06T14:05:26.432Z] [worker-sendMessage-43f2462b-29b0-43d4-9f2c-b418a7b81225]: IDLE
+[debug] [2020-02-06T14:05:26.432Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-02-06T14:06:37.426Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:06:38.427Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:06:38.428Z] [worker-~diagnostic~-9508c3f5-19f9-42fc-8cdb-42d764836c7b]: FINISHING
+[debug] [2020-02-06T14:06:38.428Z] [worker-pool] Shutting down IDLE worker (sendMessage)
+[debug] [2020-02-06T14:06:38.428Z] [worker-sendMessage-43f2462b-29b0-43d4-9f2c-b418a7b81225]: FINISHING
+[debug] [2020-02-06T14:06:38.446Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:06:38.446Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:06:38.446Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:06:38.446Z] [worker-~diagnostic~-d11cf597-2896-4e17-b9f8-83e5bc2c7f70]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66428.sock
+[debug] [2020-02-06T14:06:38.446Z] [worker-~diagnostic~-d11cf597-2896-4e17-b9f8-83e5bc2c7f70]: BUSY
+[debug] [2020-02-06T14:06:38.450Z] [worker-~diagnostic~-9508c3f5-19f9-42fc-8cdb-42d764836c7b]: exited
+[debug] [2020-02-06T14:06:38.450Z] [worker-~diagnostic~-9508c3f5-19f9-42fc-8cdb-42d764836c7b]: FINISHED
+[debug] [2020-02-06T14:06:38.451Z] [worker-sendMessage-43f2462b-29b0-43d4-9f2c-b418a7b81225]: exited
+[debug] [2020-02-06T14:06:38.451Z] [worker-sendMessage-43f2462b-29b0-43d4-9f2c-b418a7b81225]: FINISHED
+[debug] [2020-02-06T14:06:38.797Z] [runtime-status] [66428] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:06:38.801Z] [runtime-status] [66428] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:06:38.805Z] [runtime-status] [66428] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:06:38.807Z] [runtime-status] [66428] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:06:38.808Z] [runtime-status] [66428] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:06:39.117Z] [worker-~diagnostic~-d11cf597-2896-4e17-b9f8-83e5bc2c7f70]: IDLE
+[debug] [2020-02-06T14:07:29.899Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:07:30.903Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:07:30.903Z] [worker-~diagnostic~-d11cf597-2896-4e17-b9f8-83e5bc2c7f70]: FINISHING
+[debug] [2020-02-06T14:07:30.904Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:07:30.904Z] [worker-pool] Cleaned up workers for sendMessage: 1 --> 0
+[debug] [2020-02-06T14:07:30.913Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:07:30.916Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:07:30.916Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:07:30.916Z] [worker-~diagnostic~-63964b61-09b3-4676-b5c7-617513802d70]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66662.sock
+[debug] [2020-02-06T14:07:30.916Z] [worker-~diagnostic~-63964b61-09b3-4676-b5c7-617513802d70]: BUSY
+[debug] [2020-02-06T14:07:30.918Z] [worker-~diagnostic~-d11cf597-2896-4e17-b9f8-83e5bc2c7f70]: exited
+[debug] [2020-02-06T14:07:30.919Z] [worker-~diagnostic~-d11cf597-2896-4e17-b9f8-83e5bc2c7f70]: FINISHED
+[debug] [2020-02-06T14:07:31.285Z] [runtime-status] [66662] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:07:31.287Z] [runtime-status] [66662] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:07:31.290Z] [runtime-status] [66662] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:07:31.291Z] [runtime-status] [66662] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:07:31.292Z] [runtime-status] [66662] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:07:31.585Z] [worker-~diagnostic~-63964b61-09b3-4676-b5c7-617513802d70]: IDLE
+[debug] [2020-02-06T14:07:47.590Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:07:48.594Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:07:48.594Z] [worker-~diagnostic~-63964b61-09b3-4676-b5c7-617513802d70]: FINISHING
+[debug] [2020-02-06T14:07:48.594Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:07:48.605Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:07:48.605Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:07:48.606Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:07:48.606Z] [worker-~diagnostic~-8f7e58e8-7c3f-4e96-bb35-edc21d7eb142]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66750.sock
+[debug] [2020-02-06T14:07:48.606Z] [worker-~diagnostic~-8f7e58e8-7c3f-4e96-bb35-edc21d7eb142]: BUSY
+[debug] [2020-02-06T14:07:48.608Z] [worker-~diagnostic~-63964b61-09b3-4676-b5c7-617513802d70]: exited
+[debug] [2020-02-06T14:07:48.610Z] [worker-~diagnostic~-63964b61-09b3-4676-b5c7-617513802d70]: FINISHED
+[debug] [2020-02-06T14:07:48.968Z] [runtime-status] [66750] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:07:48.970Z] [runtime-status] [66750] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:07:48.972Z] [runtime-status] [66750] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:07:48.973Z] [runtime-status] [66750] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:07:48.974Z] [runtime-status] [66750] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:07:49.248Z] [worker-~diagnostic~-8f7e58e8-7c3f-4e96-bb35-edc21d7eb142]: IDLE
+[debug] [2020-02-06T14:08:06.532Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:08:07.535Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:08:07.536Z] [worker-~diagnostic~-8f7e58e8-7c3f-4e96-bb35-edc21d7eb142]: FINISHING
+[debug] [2020-02-06T14:08:07.536Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:08:07.545Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:08:07.545Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:08:07.545Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:08:07.545Z] [worker-~diagnostic~-dc684f4c-3064-4537-9298-2d9c4a8bebea]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66831.sock
+[debug] [2020-02-06T14:08:07.546Z] [worker-~diagnostic~-dc684f4c-3064-4537-9298-2d9c4a8bebea]: BUSY
+[debug] [2020-02-06T14:08:07.547Z] [worker-~diagnostic~-8f7e58e8-7c3f-4e96-bb35-edc21d7eb142]: exited
+[debug] [2020-02-06T14:08:07.548Z] [worker-~diagnostic~-8f7e58e8-7c3f-4e96-bb35-edc21d7eb142]: FINISHED
+[debug] [2020-02-06T14:08:07.895Z] [runtime-status] [66831] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:08:07.897Z] [runtime-status] [66831] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:08:07.900Z] [runtime-status] [66831] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:08:07.902Z] [runtime-status] [66831] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:08:07.903Z] [runtime-status] [66831] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:08:08.180Z] [worker-~diagnostic~-dc684f4c-3064-4537-9298-2d9c4a8bebea]: IDLE
+[debug] [2020-02-06T14:08:13.802Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:08:14.803Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:08:14.803Z] [worker-~diagnostic~-dc684f4c-3064-4537-9298-2d9c4a8bebea]: FINISHING
+[debug] [2020-02-06T14:08:14.803Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:08:14.813Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:08:14.813Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:08:14.813Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:08:14.813Z] [worker-~diagnostic~-50ae9da4-6cd2-4102-94bb-0dcaf88da206]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66855.sock
+[debug] [2020-02-06T14:08:14.813Z] [worker-~diagnostic~-50ae9da4-6cd2-4102-94bb-0dcaf88da206]: BUSY
+[debug] [2020-02-06T14:08:14.815Z] [worker-~diagnostic~-dc684f4c-3064-4537-9298-2d9c4a8bebea]: exited
+[debug] [2020-02-06T14:08:14.815Z] [worker-~diagnostic~-dc684f4c-3064-4537-9298-2d9c4a8bebea]: FINISHED
+[debug] [2020-02-06T14:08:15.206Z] [runtime-status] [66855] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:08:15.209Z] [runtime-status] [66855] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:08:15.211Z] [runtime-status] [66855] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:08:15.213Z] [runtime-status] [66855] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:08:15.215Z] [runtime-status] [66855] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:08:15.557Z] [worker-~diagnostic~-50ae9da4-6cd2-4102-94bb-0dcaf88da206]: IDLE
+[debug] [2020-02-06T14:08:20.367Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-02-06T14:08:20.369Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-02-06T14:08:20.369Z] Accepted request POST /remote-notifications-5931d/us-central1/sendMessage --> sendMessage
+[debug] [2020-02-06T14:08:20.369Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:08:20.375Z] [worker-pool] addWorker(sendMessage)
+[debug] [2020-02-06T14:08:20.375Z] [worker-pool] Adding worker with key sendMessage, total=1
+[debug] [2020-02-06T14:08:20.375Z] [worker-pool] submitWork(triggerId=sendMessage)
+[debug] [2020-02-06T14:08:20.375Z] [worker-sendMessage-b7ed8f90-2400-4251-ac5d-53732cc9c959]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66892.sock
+[debug] [2020-02-06T14:08:20.376Z] [worker-sendMessage-b7ed8f90-2400-4251-ac5d-53732cc9c959]: BUSY
+[debug] [2020-02-06T14:08:20.995Z] [runtime-status] [66892] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:08:20.998Z] [runtime-status] [66892] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:08:21.008Z] [runtime-status] [66892] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:08:21.010Z] [runtime-status] [66892] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:08:21.012Z] [runtime-status] [66892] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:08:21.577Z] [runtime-status] [66892] Trigger "sendMessage" has been found, beginning invocation!
+[info] i  functions: Beginning execution of "sendMessage"
+[debug] [2020-02-06T14:08:21.577Z] [runtime-status] [66892] triggerDefinition {"httpsTrigger":{},"name":"sendMessage","entryPoint":"sendMessage"}
+[debug] [2020-02-06T14:08:21.578Z] [runtime-status] [66892] Running sendMessage in mode HTTPS
+[debug] [2020-02-06T14:08:21.584Z] [runtime-status] [66892] Attempting to listen to socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_66892.sock
+[debug] [2020-02-06T14:08:21.595Z] [functions] Runtime ready! Sending request!
+[debug] [2020-02-06T14:08:21.704Z] [runtime-status] [66892] Ephemeral server handling POST request
+[debug] [2020-02-06T14:08:21.711Z] [runtime-status] [66892] Ephemeral server survived.
+[info] i  functions: Finished "sendMessage" in ~3s
+[debug] [2020-02-06T14:08:25.131Z] [worker-sendMessage-b7ed8f90-2400-4251-ac5d-53732cc9c959]: IDLE
+[debug] [2020-02-06T14:08:25.131Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-02-06T14:09:04.706Z] File /Users/vssubbia/Github/remote-notifications/Backend/src/app.js changed, reloading triggers
+[debug] [2020-02-06T14:09:05.711Z] [worker-pool] Shutting down IDLE worker (~diagnostic~)
+[debug] [2020-02-06T14:09:05.711Z] [worker-~diagnostic~-50ae9da4-6cd2-4102-94bb-0dcaf88da206]: FINISHING
+[debug] [2020-02-06T14:09:05.711Z] [worker-pool] Shutting down IDLE worker (sendMessage)
+[debug] [2020-02-06T14:09:05.711Z] [worker-sendMessage-b7ed8f90-2400-4251-ac5d-53732cc9c959]: FINISHING
+[debug] [2020-02-06T14:09:05.723Z] [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-02-06T14:09:05.723Z] [worker-pool] Adding worker with key ~diagnostic~, total=2
+[debug] [2020-02-06T14:09:05.723Z] [worker-pool] submitWork(triggerId=)
+[debug] [2020-02-06T14:09:05.723Z] [worker-~diagnostic~-838e9df1-2092-41db-8183-c58008110139]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_68898.sock
+[debug] [2020-02-06T14:09:05.723Z] [worker-~diagnostic~-838e9df1-2092-41db-8183-c58008110139]: BUSY
+[debug] [2020-02-06T14:09:05.725Z] [worker-~diagnostic~-50ae9da4-6cd2-4102-94bb-0dcaf88da206]: exited
+[debug] [2020-02-06T14:09:05.725Z] [worker-~diagnostic~-50ae9da4-6cd2-4102-94bb-0dcaf88da206]: FINISHED
+[debug] [2020-02-06T14:09:05.726Z] [worker-sendMessage-b7ed8f90-2400-4251-ac5d-53732cc9c959]: exited
+[debug] [2020-02-06T14:09:05.726Z] [worker-sendMessage-b7ed8f90-2400-4251-ac5d-53732cc9c959]: FINISHED
+[debug] [2020-02-06T14:09:06.135Z] [runtime-status] [68898] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:09:06.138Z] [runtime-status] [68898] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:09:06.141Z] [runtime-status] [68898] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:09:06.143Z] [runtime-status] [68898] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:09:06.144Z] [runtime-status] [68898] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:09:06.531Z] [worker-~diagnostic~-838e9df1-2092-41db-8183-c58008110139]: IDLE
+[debug] [2020-02-06T14:09:14.813Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-02-06T14:09:14.814Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-02-06T14:09:14.814Z] Accepted request POST /remote-notifications-5931d/us-central1/sendMessage --> sendMessage
+[debug] [2020-02-06T14:09:14.814Z] [worker-pool] Cleaned up workers for ~diagnostic~: 2 --> 1
+[debug] [2020-02-06T14:09:14.814Z] [worker-pool] Cleaned up workers for sendMessage: 1 --> 0
+[debug] [2020-02-06T14:09:14.825Z] [worker-pool] addWorker(sendMessage)
+[debug] [2020-02-06T14:09:14.825Z] [worker-pool] Adding worker with key sendMessage, total=1
+[debug] [2020-02-06T14:09:14.825Z] [worker-pool] submitWork(triggerId=sendMessage)
+[debug] [2020-02-06T14:09:14.826Z] [worker-sendMessage-e407ce1b-452f-416e-878b-4e329bef007e]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_68934.sock
+[debug] [2020-02-06T14:09:14.826Z] [worker-sendMessage-e407ce1b-452f-416e-878b-4e329bef007e]: BUSY
+[debug] [2020-02-06T14:09:17.013Z] [runtime-status] [68934] Functions runtime initialized. {"cwd":"/Users/vssubbia/Github/remote-notifications/Backend","node_version":"10.13.0"}
+[debug] [2020-02-06T14:09:17.034Z] [runtime-status] [68934] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-02-06T14:09:17.040Z] [runtime-status] [68934] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.2","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-admin/lib/index.js"}
+[debug] [2020-02-06T14:09:17.050Z] [runtime-status] [68934] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:09:17.054Z] [runtime-status] [68934] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"/Users/vssubbia/Github/remote-notifications/Backend/node_modules/firebase-functions/lib/index.js"}
+[debug] [2020-02-06T14:09:19.489Z] [runtime-status] [68934] Trigger "sendMessage" has been found, beginning invocation!
+[info] i  functions: Beginning execution of "sendMessage"
+[debug] [2020-02-06T14:09:19.490Z] [runtime-status] [68934] triggerDefinition {"httpsTrigger":{},"name":"sendMessage","entryPoint":"sendMessage"}
+[debug] [2020-02-06T14:09:19.492Z] [runtime-status] [68934] Running sendMessage in mode HTTPS
+[debug] [2020-02-06T14:09:19.541Z] [runtime-status] [68934] Attempting to listen to socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_68934.sock
+[debug] [2020-02-06T14:09:19.559Z] [functions] Runtime ready! Sending request!
+[debug] [2020-02-06T14:09:19.877Z] [runtime-status] [68934] Ephemeral server handling POST request
+[debug] [2020-02-06T14:09:19.921Z] [runtime-status] [68934] Ephemeral server survived.
+[info] i  functions: Finished "sendMessage" in ~2s
+[debug] [2020-02-06T14:09:22.448Z] [worker-sendMessage-e407ce1b-452f-416e-878b-4e329bef007e]: IDLE
+[debug] [2020-02-06T14:09:22.448Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-02-06T14:10:02.964Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-02-06T14:10:02.965Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-02-06T14:10:02.965Z] Accepted request POST /remote-notifications-5931d/us-central1/sendMessage --> sendMessage
+[debug] [2020-02-06T14:10:02.965Z] [worker-pool] submitWork(triggerId=sendMessage)
+[debug] [2020-02-06T14:10:02.965Z] [worker-sendMessage-e407ce1b-452f-416e-878b-4e329bef007e]: Assigning socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_68934.sock
+[debug] [2020-02-06T14:10:02.965Z] [worker-sendMessage-e407ce1b-452f-416e-878b-4e329bef007e]: BUSY
+[debug] [2020-02-06T14:10:02.967Z] [runtime-status] [68934] Trigger "sendMessage" has been found, beginning invocation!
+[info] i  functions: Beginning execution of "sendMessage"
+[debug] [2020-02-06T14:10:02.968Z] [runtime-status] [68934] triggerDefinition {"httpsTrigger":{},"name":"sendMessage","entryPoint":"sendMessage"}
+[debug] [2020-02-06T14:10:02.968Z] [runtime-status] [68934] Running sendMessage in mode HTTPS
+[debug] [2020-02-06T14:10:02.968Z] [runtime-status] [68934] Attempting to listen to socketPath: /var/folders/dy/dv3c9djs4wg8kd28l2x3qkyxqsqcdj/T/fire_emu_68934.sock
+[debug] [2020-02-06T14:10:02.970Z] [functions] Runtime ready! Sending request!
+[debug] [2020-02-06T14:10:02.977Z] [runtime-status] [68934] Ephemeral server handling POST request
+[debug] [2020-02-06T14:10:02.982Z] [runtime-status] [68934] Ephemeral server survived.
+[info] i  functions: Finished "sendMessage" in ~1s
+[debug] [2020-02-06T14:10:03.546Z] [worker-sendMessage-e407ce1b-452f-416e-878b-4e329bef007e]: IDLE
+[debug] [2020-02-06T14:10:03.546Z] [work-queue] {"queueLength":0,"workRunningCount":0}
