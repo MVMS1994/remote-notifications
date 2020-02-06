@@ -1,9 +1,9 @@
-package veera.subbiah.remote.notifications.core
+package veera.subbiah.remote.control.core
 
 import android.content.Context
 import android.util.Log
 import org.json.JSONArray
-import veera.subbiah.remote.notifications.data.KeyStore
+import veera.subbiah.remote.control.data.KeyStore
 import java.lang.Exception
 
 object PkgManager {

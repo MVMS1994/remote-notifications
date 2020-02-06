@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:95985728088:android:573d0c5cfcec43ecd8282d",
+        "mobilesdk_app_id": "1:95985728088:android:17b2a0d0c70bc902d8282d",
         "android_client_info": {
-          "package_name": "veera.subbiah.remote.notifications"
+          "package_name": "veera.subbiah.remote.control"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "95985728088-ae8d58ec9u843hl0u8svi8tkc9tg9hmh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "veera.subbiah.remote.control",
+            "certificate_hash": "1284e19b4d8930216042066c1fed67c7dbea352f"
+          }
+        },
         {
           "client_id": "95985728088-lgf7ro67k8bssh1k07ifjhdm4cnqdoad.apps.googleusercontent.com",
           "client_type": 3
@@ -28,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "95985728088-lgf7ro67k8bssh1k07ifjhdm4cnqdoad.apps.googleusercontent.com",
+              "client_id": "95985728088-ubuunue6rg6t3r1dd8dc95k5jrorokuu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

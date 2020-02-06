@@ -6,12 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
 
-  <script src="/__/firebase/7.8.0/firebase-app.js"></script>
-  <script src="/__/firebase/7.8.0/firebase-auth.js"></script>
-  <script src="/__/firebase/7.8.0/firebase-messaging.js"></script>
-  <script src="/__/firebase/init.js"></script>
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"></link>
   <link
     rel="stylesheet"
@@ -20,6 +15,26 @@
   />
 </head>
 <body>
+  <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-messaging.js"></script>
+
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyDVg8zRswzY1rxeFTkMBMHKKLvLRTabmfU",
+      authDomain: "remote-notifications-5931d.firebaseapp.com",
+      databaseURL: "https://remote-notifications-5931d.firebaseio.com",
+      projectId: "remote-notifications-5931d",
+      storageBucket: "remote-notifications-5931d.appspot.com",
+      messagingSenderId: "95985728088",
+      appId: "1:95985728088:web:a0b03b3b0b718b44d8282d",
+      measurementId: "G-89TQM0N6BG"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
   <div id="root"></div>
   <script type="text/javascript" src="./ui.js"></script>
   <script type="text/javascript" src="./app.js"></script>

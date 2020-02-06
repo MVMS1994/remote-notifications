@@ -1,8 +1,8 @@
-package veera.subbiah.remote.notifications.data
+package veera.subbiah.remote.control.data
 
 import android.annotation.SuppressLint
 import android.content.Context
-import veera.subbiah.remote.notifications.R
+import veera.subbiah.remote.control.R
 
 
 object KeyStore {

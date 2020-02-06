@@ -1,12 +1,14 @@
-package veera.subbiah.remote.notifications
+package veera.subbiah.remote.control
 
 import android.content.Context
 import android.provider.Settings
 import android.util.Log
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import veera.subbiah.remote.notifications.core.PkgManager
-import veera.subbiah.remote.notifications.data.ListModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import veera.subbiah.remote.control.core.PkgManager
+import veera.subbiah.remote.control.data.ListModel
 
 const val ENABLED_APPS = "enabled_notification_listeners"
 
@@ -17,7 +19,7 @@ fun canAccessNotifications(context: Context): Boolean {
     return enabledAppList?.contains(context.packageName)?: false
 }
 
-fun getInstalledPackages(context: Context): List<ListModel> {
+fun getInstalledPackages(context: Context): java.util.ArrayList<ListModel> {
     val pm = context.packageManager
     val apps = pm.getInstalledApplications(PackageManager.GET_META_DATA)?: mutableListOf()
     val savedPref = PkgManager.getSavedNotificationPref()
@@ -41,3 +43,7 @@ fun getAppName(context: Context, applicationInfo: ApplicationInfo?): String {
         ?: "UNKNOWN APP"
 }
 
+
+fun getUser(): FirebaseUser? {
+    return FirebaseAuth.getInstance().currentUser
+}

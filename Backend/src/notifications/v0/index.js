@@ -8,7 +8,7 @@ exports["sendNotifications"] = async (db, uid, data) => {
     tokens.forEach((item) => { if (item.val()) { registrationTokens.push(item.key); } });
   }
 
-  data.actions = JSON.stringify(data.actions);
+  data.actions = JSON.stringify(data.actions || []);
   return {
     data: {
       ...data,
