@@ -29,8 +29,10 @@ onNewMessage = runFree_ <<< liftRight <<< Console.log <<< show
 
 cleanUPFlow :: Free Unit
 cleanUPFlow = do
-  UI.updateSignInStatus "SIGNED_OUT" ""
+  saveS C.sSENT_TO_SERVER false
+  API.deregisterPushToken
   deleteS C.sAUTH_PAYLOAD
+  UI.updateSignInStatus "SIGNED_OUT" ""
   initSignIn
 
 
@@ -41,6 +43,7 @@ initFlow messaging user = do
   saveS C.sAUTH_PAYLOAD user
   onMessage messaging onNewMessage
   API.registerPushToken
+  saveS C.sSENT_TO_SERVER true
 
 
 initFirebase :: Free FIREBASE
