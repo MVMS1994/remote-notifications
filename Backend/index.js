@@ -1,28 +1,31 @@
-const functions = require('firebase-functions');
-const app = require('./src/app.js');
+const cors      = require('cors');
+const express   = require('express');
+const firebase  = require('firebase-functions');
 
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
+const options   = require('./src/middlewares/options');
+const functions = require('./src/app.js');
+
+
+const app = express();
+app.use(cors({ origin: true }));
+app.use(options);
 
 const handleFunctions = (name, request, response) => {
-  response.set('Access-Control-Allow-Origin', "*");
-  response.set('Access-Control-Allow-Methods', "DELETE, POST, GET, OPTIONS")
-  response.set('Access-Control-Allow-Headers', "Accept,Content-Type,x-uid,x-signature,Access-Control-Allow-Headers,Authorization,Origin");
-
-  if(request.method === "OPTIONS") {
-    response.status(200).send();
-    return;
-  }
-
-  app[name](request.body, request.query, request.headers)
+  functions[name](request.body, request.query, request.headers)
     .then((res) => { response.status(res.code).send(res.data); return; })
     .catch((err) => { response.status(500).send("Internal Server Error"); throw err; });
 }
 
-exports.sendMessage = functions.https.onRequest((request, response) => {
+app.post("/v0/sendMessage", (request, response) => {
   handleFunctions("triggerMessage", request, response);
 });
 
-exports.registerPushToken = functions.https.onRequest((request, response) => {
+app.post("/v0/registerPushToken", (request, response) => {
   handleFunctions("savePushToken", request, response);
 });
+
+app.delete("/v0/deletePushToken", (request, response) => {
+  handleFunctions("deletePushToken", request, response);
+})
+
+exports.notifications = firebase.https.onRequest(app);
