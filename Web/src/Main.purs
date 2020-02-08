@@ -4,15 +4,17 @@ import Prelude
 import Auth (initAuthListener, initSignIn)
 import Backend as API
 import Constants as C
+import Data.Array (snoc)
 import Data.Maybe (Maybe(..), maybe)
 import Data.Newtype (unwrap)
+import Data.Traversable (traverse)
 import Effect (Effect)
 import Effect.Console as Console
 import Firebase (initMessaging, onTokenRefresh, requestPermission, saveToken, onMessage)
 import RN.UI as UI
 import Reducers (rootReducer)
 import Types (Free, FIREBASE, FIREBASE_PERMISSION(..), GoogleUser(..), Notification)
-import Utils (liftLeft, liftRight, deleteS, saveS, runFree_, forkFree)
+import Utils (liftLeft, liftRight, loadS, deleteS, saveS, runFree_, forkFree)
 
 --==================================== LISTENERS ====================================--
 
@@ -23,7 +25,17 @@ authListener messaging u@(GoogleUser _user) = runFree_ do
     Just user -> initFlow messaging u
 
 onNewMessage :: Notification -> Effect Unit
-onNewMessage = runFree_ <<< liftRight <<< Console.log <<< show
+onNewMessage message = runFree_ do
+  liftRight $ Console.log $ show message
+  savedMsgs <- fetchNotifications =<< loadS C.sNOTIFICATIONS
+  let allMsgs = snoc savedMsgs message
+  saveS C.sNOTIFICATIONS allMsgs
+  UI.displayNotifications allMsgs
+
+  where
+    fetchNotifications :: Maybe (Array Notification) -> Free (Array Notification)
+    fetchNotifications = pure <<< maybe [] identity
+
 
 --==================================== =========== ====================================--
 
@@ -31,7 +43,7 @@ cleanUPFlow :: Free Unit
 cleanUPFlow = do
   saveS C.sSENT_TO_SERVER false
   API.deregisterPushToken
-  deleteS C.sAUTH_PAYLOAD
+  void $ traverse deleteS [C.sNOTIFICATIONS, C.sAUTH_PAYLOAD]
   UI.updateSignInStatus "SIGNED_OUT" ""
   initSignIn
 
@@ -60,9 +72,14 @@ initFirebase = do
 
 start :: Free Unit
 start = do
-  UI.initUI rootReducer
+  savedMsgs <- fetchNotifications =<< loadS C.sNOTIFICATIONS
+  UI.initUI (rootReducer savedMsgs)
   messaging <- initFirebase
   initAuthListener $ authListener messaging
+
+  where
+    fetchNotifications :: Maybe (Array Notification) -> Free (Array Notification)
+    fetchNotifications = pure <<< maybe [] identity
 
 
 main :: Effect Unit

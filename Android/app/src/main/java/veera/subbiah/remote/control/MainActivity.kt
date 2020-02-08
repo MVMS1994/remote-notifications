@@ -1,16 +1,21 @@
 package veera.subbiah.remote.control
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.widget.ViewPager2
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import veera.subbiah.remote.control.core.analytics.Tracker
 import veera.subbiah.remote.control.core.auth.FirebaseAuthAdapter
 import veera.subbiah.remote.control.ui.adapters.ViewPagerAdapter
@@ -58,32 +63,44 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.title_menu, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        (menu.findItem(R.id.search).actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        }
         return true
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        if(firebaseAuth.currentUser == null) {
-            menu?.findItem(R.id.sign_out)?.isVisible = false
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        if(getUser() == null) {
+            menu.findItem(R.id.sign_out)?.isVisible = false
         } else {
-            menu?.findItem(R.id.sign_in)?.isVisible = false
+            menu.findItem(R.id.sign_in)?.isVisible = false
         }
 
         return super.onPrepareOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
             R.id.sign_out -> {
                 FirebaseAuthAdapter.signOut(this, Runnable {
+                    FirebaseAnalytics
+                        .getInstance(this)
+                        .logEvent("sign_out", null)
+
                     invalidateOptionsMenu()
                 })
                 return true
             }
             R.id.sign_in -> {
                 FirebaseAuthAdapter.signIn(this)
+                return true
+            }
+            R.id.search -> {
+
                 return true
             }
             else -> false
@@ -95,6 +112,12 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == FirebaseAuthAdapter.RC_SIGN_IN) {
             IdpResponse.fromResultIntent(data)
+            if(getUser() != null) {
+                FirebaseAnalytics
+                    .getInstance(this)
+                    .logEvent("login", null)
+            }
+
             invalidateOptionsMenu()
             Tracker.sessionUser(this)
         }

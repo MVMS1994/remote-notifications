@@ -50,7 +50,8 @@ instance showGoogleUser :: Show GoogleUser where
 type AppUIState = {
   isLoading :: Boolean,
   isSignedIn :: Boolean,
-  userName :: String
+  userName :: String,
+  notifications :: Array Notification
 }
 
 type AppAction a =

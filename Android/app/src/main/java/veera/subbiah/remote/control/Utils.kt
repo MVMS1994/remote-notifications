@@ -9,6 +9,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import veera.subbiah.remote.control.core.PkgManager
 import veera.subbiah.remote.control.data.ListModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 const val ENABLED_APPS = "enabled_notification_listeners"
 
@@ -33,7 +35,7 @@ fun getInstalledPackages(context: Context): java.util.ArrayList<ListModel> {
                 .setSelected(savedPref.contains(app.packageName)))
     }
 
-    arrayAppListModel.sortWith(compareBy({ !it.isSelected() }, { it.getAppName() }))
+    arrayAppListModel.sortWith(compareBy({ !it.isSelected() }, { it.getAppName().toLowerCase(Locale.US) }))
     return arrayAppListModel
 }
 

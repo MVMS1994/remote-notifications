@@ -3,4 +3,7 @@
     <string name="logout">Logout</string>
     <string name="login">Login</string>
     <string name="base_url">https://us-central1-remote-notifications-5931d.cloudfunctions.net</string>
+
+    <string name="send_message">/notifications/v0/sendMessage</string>
+    <string name="search">Search...</string>
 </resources>

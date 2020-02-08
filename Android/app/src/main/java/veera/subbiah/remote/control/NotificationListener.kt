@@ -30,7 +30,7 @@ class NotificationListener: NotificationListenerService() {
             notificationData.put("smallText", smallText)
             payload.put("data", notificationData)
 
-            val url = getString(R.string.base_url) + "/notifications/v0/sendMessage"
+            val url = getString(R.string.base_url) + getString(R.string.send_message)
             val apiHandlerTask = ApiHandler.ApiHandlerTask()
             apiHandlerTask.execute(url, payload.toString(), "post")
         }

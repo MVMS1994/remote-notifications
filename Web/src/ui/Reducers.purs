@@ -6,22 +6,24 @@ import Effect (Effect)
 import Effect.Console as Console
 import Foreign (Foreign, isNull, isUndefined)
 import Foreign.Generic (decode)
-import Types (AppUIState, AppAction, AppReducers)
+import Types (AppUIState, AppAction, AppReducers, Notification)
 import Utils (hoistEff)
 
 initialUIState :: AppUIState
 initialUIState = {
   isLoading: true,
   isSignedIn: false,
-  userName: ""
+  userName: "",
+  notifications: []
 }
 
 uiHandler :: AppUIState -> (forall a. AppAction a) -> Effect AppUIState
 uiHandler state action = do
   case action.type of
-    "SIGNED_IN"   -> pure $ state { isLoading=false, isSignedIn=true, userName=action.userName }
-    "SIGNED_OUT"  -> pure $ state { isLoading=false, isSignedIn=false, userName="" }
-    "DO_SIGN_OUT" -> Console.log "signing out" *> _signOut *> pure state
+    "SIGNED_IN"   -> pure state { isLoading=false, isSignedIn=true, userName=action.userName }
+    "SIGNED_OUT"  -> pure state { isLoading=false, isSignedIn=false, userName="", notifications=[] }
+    "DO_SIGN_OUT" -> Console.log "signing out" *> _signOut *> pure state { isLoading=true }
+    "DISP_NOTIF"  -> pure state { notifications=action.notifications }
     _ -> pure state
 
 
@@ -32,10 +34,10 @@ toState default f = do
     false -> hoistEff $ decode f
 
 
-rootReducer :: AppReducers
-rootReducer = {
+rootReducer :: Array Notification -> AppReducers
+rootReducer saved = {
   "ui-state": (\s a -> do
-    state <- (toState initialUIState s)
+    state <- (toState (initialUIState {notifications=saved}) s)
     uiHandler state a
   )
 }
