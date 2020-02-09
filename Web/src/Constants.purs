@@ -11,3 +11,6 @@ sSENT_TO_SERVER = "__token_sent"
 
 sNOTIFICATIONS :: String
 sNOTIFICATIONS = "__saved_notif"
+
+sDB_NAME :: String
+sDB_NAME = "__rn_db"

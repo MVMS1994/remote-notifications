@@ -13,3 +13,25 @@ exports["_foreignRead"] = function(obj) {
     }
   }
 }
+
+exports["_windowWrite"] = function(key) {
+  return function(value) {
+    return function() {
+      window[key] = value;
+    }
+  }
+}
+
+exports["_windowRead"] = function(key) {
+  return function(just) {
+    return function(nothing) {
+      return function() {
+        if(window[key]) {
+          return just(window[key]);
+        } else {
+          return nothing;
+        }
+      }
+    }
+  }
+}

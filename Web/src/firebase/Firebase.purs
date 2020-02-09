@@ -35,4 +35,4 @@ onMessage messaging cb = liftRight $ _onMessage (\f -> cb =<< (hoistEff $ decode
 saveToken :: FIREBASE -> Free Unit
 saveToken messaging = do
   token <- getToken messaging
-  saveS C.sFIREBASE_TOKEN token
+  saveS C.sDB_NAME C.sFIREBASE_TOKEN token

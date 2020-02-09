@@ -14,7 +14,7 @@ import Firebase (initMessaging, onTokenRefresh, requestPermission, saveToken, on
 import RN.UI as UI
 import Reducers (rootReducer)
 import Types (Free, FIREBASE, FIREBASE_PERMISSION(..), GoogleUser(..), Notification)
-import Utils (liftLeft, liftRight, loadS, deleteS, saveS, runFree_, forkFree)
+import Utils (liftLeft, liftRight, loadS, deleteS, getDBInstance, windowWrite, saveS, runFree_, forkFree)
 
 --==================================== LISTENERS ====================================--
 
@@ -27,9 +27,9 @@ authListener messaging u@(GoogleUser _user) = runFree_ do
 onNewMessage :: Notification -> Effect Unit
 onNewMessage message = runFree_ do
   liftRight $ Console.log $ show message
-  savedMsgs <- fetchNotifications =<< loadS C.sNOTIFICATIONS
+  savedMsgs <- fetchNotifications =<< loadS C.sDB_NAME C.sNOTIFICATIONS
   let allMsgs = snoc savedMsgs message
-  saveS C.sNOTIFICATIONS allMsgs
+  saveS C.sDB_NAME C.sNOTIFICATIONS allMsgs
   UI.displayNotifications allMsgs
 
   where
@@ -41,9 +41,9 @@ onNewMessage message = runFree_ do
 
 cleanUPFlow :: Free Unit
 cleanUPFlow = do
-  saveS C.sSENT_TO_SERVER false
-  API.deregisterPushToken
-  void $ traverse deleteS [C.sNOTIFICATIONS, C.sAUTH_PAYLOAD]
+  saveS C.sDB_NAME C.sSENT_TO_SERVER false
+  _ <- forkFree $ API.deregisterPushToken
+  void $ traverse (deleteS C.sDB_NAME) [C.sNOTIFICATIONS, C.sAUTH_PAYLOAD]
   UI.updateSignInStatus "SIGNED_OUT" ""
   initSignIn
 
@@ -52,10 +52,10 @@ initFlow :: FIREBASE -> GoogleUser -> Free Unit
 initFlow messaging user = do
   let name = maybe "" _.displayName (unwrap user)
   UI.updateSignInStatus "SIGNED_IN" name
-  saveS C.sAUTH_PAYLOAD user
+  saveS C.sDB_NAME C.sAUTH_PAYLOAD user
   onMessage messaging onNewMessage
   API.registerPushToken
-  saveS C.sSENT_TO_SERVER true
+  saveS C.sDB_NAME C.sSENT_TO_SERVER true
 
 
 initFirebase :: Free FIREBASE
@@ -72,7 +72,8 @@ initFirebase = do
 
 start :: Free Unit
 start = do
-  savedMsgs <- fetchNotifications =<< loadS C.sNOTIFICATIONS
+  getDBInstance C.sDB_NAME >>= windowWrite C.sDB_NAME
+  savedMsgs <- fetchNotifications =<< loadS C.sDB_NAME C.sNOTIFICATIONS
   UI.initUI (rootReducer savedMsgs)
   messaging <- initFirebase
   initAuthListener $ authListener messaging

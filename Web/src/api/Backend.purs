@@ -31,12 +31,12 @@ makeAPI a path req = A.genericAxios path (defaultConfig a) req >>= either (liftL
 
 registerPushToken :: Free Unit
 registerPushToken = do
-  sentToServer <- maybe false identity <$> loadS C.sSENT_TO_SERVER
+  sentToServer <- maybe false identity <$> loadS C.sDB_NAME C.sSENT_TO_SERVER
   case sentToServer of
     true -> pure unit
     false -> do
-      push <- fetchToken =<< loadS C.sFIREBASE_TOKEN
-      user <- fetchUser <<< unwrap =<< fetchUser =<< (loadS C.sAUTH_PAYLOAD :: Free (Maybe GoogleUser))
+      push <- fetchToken =<< loadS C.sDB_NAME C.sFIREBASE_TOKEN
+      user <- fetchUser <<< unwrap =<< fetchUser =<< (loadS C.sDB_NAME C.sAUTH_PAYLOAD :: Free (Maybe GoogleUser))
       let request = RegisterPushTokenReq {
         uid: user.uid,
         accessToken: user.accessToken,
@@ -56,7 +56,7 @@ registerPushToken = do
 
 deregisterPushToken :: Free Unit
 deregisterPushToken = do
-  push <- fetchToken =<< loadS C.sFIREBASE_TOKEN
+  push <- fetchToken =<< loadS C.sDB_NAME C.sFIREBASE_TOKEN
   let request = DeRegisterPushTokenReq {
     firebaseToken: push
   }
