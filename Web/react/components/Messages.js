@@ -1,12 +1,12 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 
-class Notifications extends React.PureComponent {
+class Messages extends React.PureComponent {
   constructor(props) {
     super(props);
   }
 
-  renderNotifications() {
+  renderMessages() {
     return (
       (this.props.messages || [])
       .slice(0)
@@ -15,12 +15,11 @@ class Notifications extends React.PureComponent {
         return (
           <tr
             style={{"fontSize": "smaller"}}
-            key={"notif_" + index}>
+            key={"sms_" + index}>
             <td>{index}</td>
             <td>{item.source}</td>
             <td style={{"wordBreak": "break-word"}}>{item.title}</td>
             <td style={{"wordBreak": "break-word"}}>{item.body}</td>
-            <td style={{"wordBreak": "break-word"}}>{item.bigText != "null"? item.bigText: ""}</td>
           </tr>
         );
       })
@@ -31,7 +30,7 @@ class Notifications extends React.PureComponent {
     return headers.map((item, index) => {
       return (
         <th
-          key={"notif_header_" + index}
+          key={"sms_header_" + index}
           width={item.width}>
           {item.name}
         </th>
@@ -51,10 +50,7 @@ class Notifications extends React.PureComponent {
       width: "25%"
     }, {
       name: "Body",
-      width: "25%"
-    }, {
-      name: "BigText",
-      width: "40%"
+      width: "65%"
     }]
 
     return this.addCSS(
@@ -62,8 +58,8 @@ class Notifications extends React.PureComponent {
         <thead><tr>
           { this.renderHeaders(headers) }
         </tr></thead>
-        <tbody id="notifications-table">
-          { this.renderNotifications() }
+        <tbody id="messages-table">
+          { this.renderMessages() }
         </tbody>
       </Table>
     )
@@ -78,4 +74,4 @@ class Notifications extends React.PureComponent {
   }
 }
 
-export default Notifications
+export default Messages

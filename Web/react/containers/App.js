@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Table, Container, Col, Row, Nav } from 'react-bootstrap';
 
 import Header from '../components/Header';
+import Messages from '../components/Messages';
 import Notifications from '../components/Notifications';
-import SideBar from '../components/SideBar';
 import logo from '../../res/logo.png'
 
 class App extends React.Component {
@@ -20,27 +20,15 @@ class App extends React.Component {
     return (
       <style type="text/css">
       {`
-        .dark, .fullpage {
-          position: fixed;
-          width: 100%;
-          height: 100%;
-          padding-bottom: 70px;
+        .fullscreen {
+          height: 100vh;
         }
         .dark {
           background: #263238;
         }
 
-        .sidebar {
-          padding: 0px;
-          background: #212529;
-        }
         .content {
           padding: 8px;
-          height: 100%;
-          overflow: scroll;
-        }
-        .row {
-          height: 100%;
         }
       `}
       </style>
@@ -49,7 +37,7 @@ class App extends React.Component {
 
   getWelcomeMessage() {
     if(this.props.isSignedIn) {
-      return "Hello, " + this.props.userName;
+      return this.props.userName;
     } else {
       return "Hello, Guest";
     }
@@ -59,23 +47,31 @@ class App extends React.Component {
     this.setState({
       selected: selected
     })
+
+  }
+
+  componentDidMount() {
+    this.props.tabChanged(this.state.selected);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(this.state.selected !== prevState.selected) {
+      this.props.tabChanged(this.state.selected);
+    }
   }
 
   renderBody() {
     return (
       <Container fluid={true} className="dark">
         <Row>
-          <Col md={2} className="sidebar">
-
-            <SideBar
-              selected={this.state.selected}
-              onSelect={this.onOptionsSelect}/>
-
-          </Col>
           <Col className="content">
 
             <Notifications
               isSelected={this.state.selected == "Notifications"}
+              messages={this.props.notifications} />
+
+            <Messages
+              isSelected={this.state.selected == "Messages"}
               messages={this.props.notifications} />
 
           </Col>
@@ -87,14 +83,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="fullpage">
+      <div className="fullscreen dark">
         <Header
           logo={this.props.logo}
+          active={this.state.selected}
           onSignIn={() => {}}
+          onSelect={this.onOptionsSelect}
           username={this.getWelcomeMessage()}
           onSignOut={this.props.signout}
           isLoading={this.props.isLoading}
           isSignedIn={this.props.isSignedIn}
+          items={["Notifications", "Messages"]}
         />
         {this.getStyles()}
         {this.renderBody()}
@@ -111,7 +110,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signout: () => dispatch({ type: 'DO_SIGN_OUT' })
+    signout: () => dispatch({ type: 'DO_SIGN_OUT' }),
+    tabChanged: (tab) => dispatch({ type: 'NEW_TAB', tab: tab })
   }
 }
 

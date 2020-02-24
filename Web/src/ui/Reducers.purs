@@ -24,6 +24,7 @@ uiHandler state action = do
     "SIGNED_OUT"  -> pure state { isLoading=false, isSignedIn=false, userName="", notifications=[] }
     "DO_SIGN_OUT" -> Console.log "signing out" *> _signOut *> pure state { isLoading=true }
     "DISP_NOTIF"  -> pure state { notifications=action.notifications }
+    "NEW_TAB"     -> (Console.log $ "new tab: " <> action.tab) *> pure state
     _ -> pure state
 
 
