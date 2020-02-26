@@ -1,9 +1,9 @@
 const Constants = require("../../constants");
 
-exports["sendNotifications"] = async (db, uid, data) => {  
+exports["sendNotifications"] = async (db, uid, data) => {
   let tokens = await db.ref("users/" + uid + "/tokens").once("value");
   let registrationTokens = [];
-  
+
   if (tokens.exists()) {
     tokens.forEach((item) => { if (item.val()) { registrationTokens.push(item.key); } });
   }
