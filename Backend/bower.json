@@ -10,6 +10,7 @@
     "purescript-prelude": "^4.1.1",
     "purescript-console": "^4.4.0",
     "purescript-effect": "^2.0.1",
+    "purescript-firebase": "https://github.com/aravindgopall/purescript-firebase.git#95bfd3395666492c361a608ab936024aea0b6289",
     "purescript-express": "^0.8.0"
   },
   "devDependencies": {
@@ -17,6 +18,8 @@
   },
   "resolutions": {
     "purescript-foreign-object": "^1.0.0",
-    "purescript-typelevel-prelude": "^3.0.0"
+    "purescript-typelevel-prelude": "^3.0.0",
+    "purescript-foreign-generic": "^7.0.0",
+    "purescript-record": "^1.0.0"
   }
 }
