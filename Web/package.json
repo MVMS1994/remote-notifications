@@ -8,6 +8,7 @@
     "pulp-dev": "pulp -w build --to dist/pulp.js",
     "start": "npm-run-all -p \"pulp-dev\" \"webpack-dev\"",
     "build": "pulp build --to dist/pulp.js && webpack --env prod",
+    "server": "firebase serve -p 8090",
     "deploy": "npm run build && firebase deploy"
   },
   "author": "Veera",
@@ -19,6 +20,7 @@
     "babel-loader": "^8.0.6",
     "css-loader": "^3.4.2",
     "file-loader": "^5.0.2",
+    "firebase-tools": "^7.15.1",
     "npm-run-all": "^4.1.5",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "pulp": "^13.0.0",
@@ -27,7 +29,7 @@
     "style-loader": "^1.1.3",
     "terser-webpack-plugin": "^2.3.4",
     "webpack": "^4.41.5",
-    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
   },

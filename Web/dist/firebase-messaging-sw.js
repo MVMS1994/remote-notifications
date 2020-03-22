@@ -1,27 +1,42 @@
+// self.addEventListener('notificationclick', function(event) {
+//   event.notification.close();
+
+//   // This looks to see if the current is already open and
+//   // focuses if it is
+//   event.waitUntil(
+//     clients.matchAll({
+//       type: "window"
+//     })
+//     .then(function(clientList) {
+//       for (var i = 0; i < clientList.length; i++) {
+//         var client = clientList[i];
+//         if (client.url == '/' && 'focus' in client)
+//           return client.focus();
+//       }
+//       if (clients.openWindow) {
+//         return clients.openWindow('/');
+//       }
+//     })
+//   );
+// });
+
+
 importScripts('./localforage.min.js');
-importScripts('/__/firebase/7.8.0/firebase-app.js');
-importScripts('/__/firebase/7.8.0/firebase-messaging.js');
-importScripts('/__/firebase/init.js');
+importScripts('https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.8.0/firebase-messaging.js');
 
-var registerOnClick = function() {
-  self.addEventListener('notificationclick', function(event) {
-    event.notification.close();
+var firebaseConfig = {
+  apiKey: "AIzaSyDVg8zRswzY1rxeFTkMBMHKKLvLRTabmfU",
+  authDomain: "remote-notifications-5931d.firebaseapp.com",
+  databaseURL: "https://remote-notifications-5931d.firebaseio.com",
+  projectId: "remote-notifications-5931d",
+  storageBucket: "remote-notifications-5931d.appspot.com",
+  messagingSenderId: "95985728088",
+  appId: "1:95985728088:web:a0b03b3b0b718b44d8282d",
+  measurementId: "G-89TQM0N6BG"
+};
 
-    // var promise = clients.matchAll({
-    //   includeUncontrolled: true,
-    //   type: 'window'
-    // }).then((list) => {
-    //   if (list && list.length > 0) {
-    //     return list[0].focus();
-    //   } else {
-    //     return clients.openWindow("/");
-    //   }
-    // });
-
-    event.waitUntil(clients.openWindow("/"));
-  }, false);
-}
-
+firebase.initializeApp(firebaseConfig);
 var saveNotifications = async function(conn, newMsg) {
   let msgs = (await conn.getItem("__saved_notif")) || [];
   msgs.push(newMsg.data);
@@ -29,8 +44,6 @@ var saveNotifications = async function(conn, newMsg) {
 }
 
 const messaging = firebase.messaging();
-
-registerOnClick();
 messaging.setBackgroundMessageHandler(async (payload) => {
   let conn = localforage.createInstance({
     name: "__rn_db",
@@ -41,7 +54,8 @@ messaging.setBackgroundMessageHandler(async (payload) => {
     payload.data.priority = payload.priority || "normal";
     var options = {
       body: payload.data.body,
-      data: payload.data
+      data: payload.data,
+      icon: './logo.png'
     }
     await saveNotifications(conn, payload);
     self.registration.showNotification(payload.data.title, options);
