@@ -7,17 +7,19 @@ class Notifications extends React.PureComponent {
   }
 
   renderNotifications() {
+    let active = this.props.filtered.source;
     return (
       (this.props.messages || [])
       .slice(0)
       .reverse()
+      .filter((item) => (item.source === active || active === "_all"))
       .map((item, index) => {
         return (
           <tr
             style={{"fontSize": "smaller"}}
             key={"notif_" + index}>
             <td>{index}</td>
-            <td>{item.source}</td>
+            <td>{item.appName || item.source}</td>
             <td style={{"wordBreak": "break-word"}}>{item.title}</td>
             <td style={{"wordBreak": "break-word"}}>{item.body}</td>
             <td style={{"wordBreak": "break-word"}}>{item.bigText != "null"? item.bigText: ""}</td>
@@ -71,7 +73,7 @@ class Notifications extends React.PureComponent {
 
   addCSS(item) {
     return (
-      <div style={{display: this.props.isSelected? "block": "none"}}>
+      <div>
         {item}
       </div>
     );

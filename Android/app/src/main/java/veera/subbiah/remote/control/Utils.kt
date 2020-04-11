@@ -45,6 +45,9 @@ fun getAppName(context: Context, applicationInfo: ApplicationInfo?): String {
         ?: "UNKNOWN APP"
 }
 
+fun getAppInfo(context: Context, packageName: String): ApplicationInfo? {
+    return context.packageManager.getApplicationInfo(packageName, 0)
+}
 
 fun getUser(): FirebaseUser? {
     return FirebaseAuth.getInstance().currentUser

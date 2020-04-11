@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 import { Table, Container, Col, Row, Nav } from 'react-bootstrap';
 
 import Header from '../components/Header';
-import Messages from '../components/Messages';
 import Notifications from '../components/Notifications';
 import logo from '../../res/logo.png'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selected: "Notifications"
+    this.filters = {
+      sources: []
     };
     this.onOptionsSelect = this.onOptionsSelect.bind(this);
   }
@@ -44,20 +43,51 @@ class App extends React.Component {
   }
 
   onOptionsSelect(selected) {
-    this.setState({
-      selected: selected
-    })
-
+    this.selected = selected;
+    this.props.tabChanged(selected);
   }
 
   componentDidMount() {
-    this.props.tabChanged(this.state.selected);
+    this.updateSourceFilters();
+    this.onOptionsSelect(this.filters.sources[0].source)
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if(this.state.selected !== prevState.selected) {
-      this.props.tabChanged(this.state.selected);
+    if(prevProps.notifications.length !== this.props.notifications.length) {
+      // TODO: Come up with a better logic
+      this.updateSourceFilters();
     }
+  }
+
+  updateSourceFilters() {
+    let items = this.props
+      .notifications
+      .reduce((acc, item) =>
+        {
+          acc[item.source] = {
+            name: item.appName || (acc[item.source] || {}).name || item.source,
+            count: ((acc[item.source] || {}).count || 0) + 1,
+            source: item.source
+          };
+          return acc;
+        },
+        {
+          "Notifications": {
+            name: "Notifications",
+            count: this.props.notifications.length,
+            source: "_all"
+          }
+        })
+
+    this.filters.sources = Object
+        .values(items)
+        .sort((f, s) => (f.count - s.count) * -1)
+  }
+
+  findFilter(selected) {
+    // TODO: Come up with a better logic
+    let matched = this.filters.sources.filter(item => item.source === selected);
+    return matched[0] || {}
   }
 
   renderBody() {
@@ -67,11 +97,7 @@ class App extends React.Component {
           <Col className="content">
 
             <Notifications
-              isSelected={this.state.selected == "Notifications"}
-              messages={this.props.notifications} />
-
-            <Messages
-              isSelected={this.state.selected == "Messages"}
+              filtered={this.findFilter(this.selected)}
               messages={this.props.notifications} />
 
           </Col>
@@ -85,15 +111,15 @@ class App extends React.Component {
     return (
       <div className="fullscreen dark">
         <Header
+          active={this.selected}
           logo={this.props.logo}
-          active={this.state.selected}
           onSignIn={() => {}}
           onSelect={this.onOptionsSelect}
           username={this.getWelcomeMessage()}
           onSignOut={this.props.signout}
           isLoading={this.props.isLoading}
           isSignedIn={this.props.isSignedIn}
-          items={["Notifications", "Messages"]}
+          items={this.filters.sources}
         />
         {this.getStyles()}
         {this.renderBody()}

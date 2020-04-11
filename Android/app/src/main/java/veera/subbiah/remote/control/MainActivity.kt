@@ -14,8 +14,6 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import veera.subbiah.remote.control.core.analytics.Tracker
 import veera.subbiah.remote.control.core.auth.FirebaseAuthAdapter
 import veera.subbiah.remote.control.ui.adapters.ViewPagerAdapter

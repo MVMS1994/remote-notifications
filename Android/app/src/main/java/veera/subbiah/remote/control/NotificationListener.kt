@@ -28,6 +28,7 @@ class NotificationListener: NotificationListenerService() {
             notificationData.put("title", title)
             notificationData.put("bigText", bigText)
             notificationData.put("smallText", smallText)
+            notificationData.put("appName", getAppName(this, getAppInfo(this, packageName)))
             payload.put("data", notificationData)
 
             val url = getString(R.string.base_url) + getString(R.string.send_message)

@@ -15,16 +15,36 @@ class Header extends React.PureComponent {
   }
 
   getMenuItems() {
-    return this.props.items.map((item, index) => {
+    let plainItems = this.props.items.slice(0, 4).map((item, index) => {
       return (
         <Nav.Link
           key={"main_nav_item_" + index}
-          eventKey={item}
-          className={(this.props.active == item)? "active" : ""}>
-          {item}
+          active={this.props.active === item.source}
+          eventKey={item.source}>
+          {item.name}
         </Nav.Link>
-      )
+      );
     });
+
+    let dropDownItems = this.props.items.slice(4).map((item, index) => {
+      return (
+        <NavDropdown.Item
+          key={"main_nav_item_" + index + 4}
+          eventKey={item.source}>
+          {item.name}
+        </NavDropdown.Item>
+      );
+    });
+
+    return (<>
+      {plainItems}
+      <NavDropdown
+        bg="dark" variant="dark"
+        title="Others"
+        id="collasible-nav-dropdown">
+        {dropDownItems}
+      </NavDropdown>
+    </>);
   }
 
   renderMenu() {
