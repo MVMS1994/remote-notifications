@@ -51,7 +51,18 @@ type AppUIState = {
   isLoading :: Boolean,
   isSignedIn :: Boolean,
   userName :: String,
-  notifications :: Array Notification
+  notifications :: Array Notification,
+  filters :: FilterTypes
+}
+
+type FilterTypes = {
+  sources :: Array Source
+}
+
+type Source = {
+  source :: String,
+  count :: Int,
+  name :: String
 }
 
 type AppAction a =

@@ -48,45 +48,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.updateSourceFilters();
-    this.onOptionsSelect(this.filters.sources[0].source)
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if(prevProps.notifications.length !== this.props.notifications.length) {
-      // TODO: Come up with a better logic
-      this.updateSourceFilters();
-    }
-  }
-
-  updateSourceFilters() {
-    let items = this.props
-      .notifications
-      .reduce((acc, item) =>
-        {
-          acc[item.source] = {
-            name: item.appName || (acc[item.source] || {}).name || item.source,
-            count: ((acc[item.source] || {}).count || 0) + 1,
-            source: item.source
-          };
-          return acc;
-        },
-        {
-          "Notifications": {
-            name: "Notifications",
-            count: this.props.notifications.length,
-            source: "_all"
-          }
-        })
-
-    this.filters.sources = Object
-        .values(items)
-        .sort((f, s) => (f.count - s.count) * -1)
+    this.onOptionsSelect(this.props.filters.sources[0].source)
   }
 
   findFilter(selected) {
     // TODO: Come up with a better logic
-    let matched = this.filters.sources.filter(item => item.source === selected);
+    let matched = this.props.filters.sources.filter(item => item.source === selected);
     return matched[0] || {}
   }
 
@@ -119,7 +86,7 @@ class App extends React.Component {
           onSignOut={this.props.signout}
           isLoading={this.props.isLoading}
           isSignedIn={this.props.isSignedIn}
-          items={this.filters.sources}
+          items={this.props.filters.sources}
         />
         {this.getStyles()}
         {this.renderBody()}

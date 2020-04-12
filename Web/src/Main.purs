@@ -74,7 +74,7 @@ start :: Free Unit
 start = do
   getDBInstance C.sDB_NAME >>= windowWrite C.sDB_NAME
   savedMsgs <- fetchNotifications =<< loadS C.sDB_NAME C.sNOTIFICATIONS
-  UI.initUI (rootReducer savedMsgs)
+  UI.initUI rootReducer savedMsgs
   messaging <- initFirebase
   initAuthListener $ authListener messaging
 

@@ -73,9 +73,9 @@ class Notifications extends React.PureComponent {
 
   addCSS(item) {
     return (
-      <div>
+      <>
         {item}
-      </div>
+      </>
     );
   }
 }

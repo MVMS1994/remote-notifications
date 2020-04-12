@@ -4,14 +4,13 @@ import Prelude
 import API.Types (DeRegisterPushTokenReq(..), RegisterPushTokenReq(..))
 import Axios as A
 import Constants as C
-import Data.Either (Either, either)
+import Data.Either (either)
 import Data.Maybe (Maybe, maybe', maybe)
 import Data.Newtype (unwrap)
 import Effect.Console as Console
-import Effect.Exception (Error)
 import Foreign.Generic (class Encode)
 import Types (Free, GoogleUser)
-import Utils (loadS, liftRight, liftLeft, saveS)
+import Utils (liftLeft, liftRight, loadS)
 
 baseURL :: String
 baseURL = "https://us-central1-remote-notifications-5931d.cloudfunctions.net"
@@ -24,7 +23,7 @@ defaultConfig a =
   , A.baseUrl baseURL
   ]
 
-makeAPI :: forall req resp. Encode req => A.Method -> String -> req -> Free Unit
+makeAPI :: forall req. Encode req => A.Method -> String -> req -> Free Unit
 makeAPI a path req = A.genericAxios path (defaultConfig a) req >>= either (liftLeft <<< show) (pure)
 
 

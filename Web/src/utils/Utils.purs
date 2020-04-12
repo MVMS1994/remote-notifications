@@ -10,11 +10,11 @@ import Effect.Class (liftEffect)
 import Effect.Console as Console
 import Effect.Exception (error, throw)
 import Foreign (F, Foreign)
-import Foreign.Generic (class Decode, decode, decodeJSON, class Encode, encode)
+import Foreign.Generic (class Decode, class Encode, decode, encode)
 import Localforage as DB
 import Types (Free)
 
-foreign import _foreignRead :: forall a. Foreign -> String -> (a -> Maybe a) -> Maybe a -> Maybe a
+foreign import _foreignRead :: forall a. (a -> Maybe a) -> Maybe a -> String -> Foreign -> Maybe a
 foreign import _windowWrite :: String -> Foreign -> Effect Unit
 foreign import _windowRead :: forall a. String -> (a -> Maybe a) -> Maybe a -> Effect (Maybe a)
 foreign import logAny :: forall a. a -> Unit
@@ -52,12 +52,8 @@ deleteS dbName key = do
   _    <- DB.removeItem conn key
   pure unit
 
-foreignRead :: String -> Foreign -> Foreign
-foreignRead k f = do
-  let res = _foreignRead f k (Just) (Nothing)
-  case res of
-    Nothing -> encode {}
-    Just a  -> a
+foreignRead :: forall a. String -> Foreign -> Maybe a
+foreignRead = _foreignRead (Just) (Nothing)
 
 windowWrite :: forall a. Encode a => String -> a -> Free Unit
 windowWrite k = liftRight <<< _windowWrite k <<< encode

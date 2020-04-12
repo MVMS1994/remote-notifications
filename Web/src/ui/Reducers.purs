@@ -6,15 +6,23 @@ import Effect (Effect)
 import Effect.Console as Console
 import Foreign (Foreign, isNull, isUndefined)
 import Foreign.Generic (decode)
-import Types (AppUIState, AppAction, AppReducers, Notification)
+import Types (AppUIState, AppAction, AppReducers)
 import Utils (hoistEff)
+import RN.UI (updateFilters)
 
 initialUIState :: AppUIState
 initialUIState = {
   isLoading: true,
   isSignedIn: false,
   userName: "",
-  notifications: []
+  notifications: [],
+  filters: {
+    sources: [{
+      source: "_all",
+      count: 0,
+      name: "Notifications"  
+    }]
+  }
 }
 
 uiHandler :: AppUIState -> (forall a. AppAction a) -> Effect AppUIState
@@ -23,8 +31,10 @@ uiHandler state action = do
     "SIGNED_IN"   -> pure state { isLoading=false, isSignedIn=true, userName=action.userName }
     "SIGNED_OUT"  -> pure state { isLoading=false, isSignedIn=false, userName="", notifications=[] }
     "DO_SIGN_OUT" -> Console.log "signing out" *> _signOut *> pure state { isLoading=true }
-    "DISP_NOTIF"  -> pure state { notifications=action.notifications }
     "NEW_TAB"     -> (Console.log $ "new tab: " <> action.tab) *> pure state
+    "DISP_NOTIF"  -> do
+      newFilters <- updateFilters action.notifications initialUIState.filters
+      pure state { notifications=action.notifications, filters=newFilters }
     _ -> pure state
 
 
@@ -35,10 +45,10 @@ toState default f = do
     false -> hoistEff $ decode f
 
 
-rootReducer :: Array Notification -> AppReducers
-rootReducer saved = {
+rootReducer :: AppReducers
+rootReducer = {
   "ui-state": (\s a -> do
-    state <- (toState (initialUIState {notifications=saved}) s)
+    state <- toState initialUIState s
     uiHandler state a
   )
 }

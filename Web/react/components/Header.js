@@ -47,39 +47,28 @@ class Header extends React.PureComponent {
     </>);
   }
 
-  renderMenu() {
+  getSideButton() {
     if(this.props.isSignedIn) {
-      return (
-        <>
-          <Navbar.Toggle aria-controls="header-navbar-nav"/>
-          <Navbar.Collapse id="header-navbar-nav">
-            <Nav onSelect={this.props.onSelect} className="mr-auto">
-              {this.getMenuItems()}
-            </Nav>
-
-            <Nav>
-              <NavDropdown
-                bg="dark" variant="dark"
-                title="Profile" alignRight
-                id="collasible-nav-dropdown">
-                <NavDropdown.Item> {this.props.username} </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item>
-                  <Button
-                    style={{
-                      display: (this.props.isSignedIn)? "inline-block" : "none"
-                    }}
-                    variant="outline-dark"
-                    onClick={this.props.onSignOut}
-                    disabled={this.props.isLoading}>
-                    Sign Out
-                  </Button>
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </>
-      );
+      return (<Nav>
+        <NavDropdown
+          bg="dark" variant="dark"
+          title="Profile" alignRight
+          id="collasible-nav-dropdown">
+          <NavDropdown.Item> {this.props.username} </NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item>
+            <Button
+              style={{
+                display: (this.props.isSignedIn)? "inline-block" : "none"
+              }}
+              variant="outline-dark"
+              onClick={this.props.onSignOut}
+              disabled={this.props.isLoading}>
+              Sign Out
+            </Button>
+          </NavDropdown.Item>
+        </NavDropdown>
+      </Nav>);
     } else if(!this.props.isLoading) {
       return (
         <Nav className="ml-auto">
@@ -93,6 +82,21 @@ class Header extends React.PureComponent {
         </Nav>
       );
     }
+  }
+
+  renderMenu() {
+    return (
+      <>
+        <Navbar.Toggle aria-controls="header-navbar-nav"/>
+        <Navbar.Collapse id="header-navbar-nav">
+          <Nav onSelect={this.props.onSelect} className="mr-auto">
+            {this.getMenuItems()}
+          </Nav>
+
+          {this.getSideButton()}
+        </Navbar.Collapse>
+      </>
+    );
   }
 
   render() {
