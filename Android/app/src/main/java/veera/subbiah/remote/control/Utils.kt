@@ -37,8 +37,12 @@ fun getInstalledPackages(context: Context): java.util.ArrayList<ListModel> {
                 .setSelected(savedPref.contains(app.packageName)))
     }
 
-    arrayAppListModel.sortWith(compareBy({ !it.isSelected() }, { it.getAppName().toLowerCase(Locale.US) }))
+    sortAppList(arrayAppListModel)
     return arrayAppListModel
+}
+
+fun sortAppList(appList: ArrayList<ListModel>) {
+    appList.sortWith(compareBy({ !it.isSelected() }, { it.getAppName().toLowerCase(Locale.US) }))
 }
 
 fun getAppName(context: Context, applicationInfo: ApplicationInfo?): String {

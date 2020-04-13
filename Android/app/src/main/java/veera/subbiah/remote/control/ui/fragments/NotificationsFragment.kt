@@ -1,5 +1,7 @@
 package veera.subbiah.remote.control.ui.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -14,14 +16,16 @@ import androidx.fragment.app.Fragment
 import veera.subbiah.remote.control.R
 import veera.subbiah.remote.control.canAccessNotifications
 import veera.subbiah.remote.control.core.PkgManager
+import veera.subbiah.remote.control.data.Commands
 import veera.subbiah.remote.control.data.ListModel
 import veera.subbiah.remote.control.getInstalledPackages
 import veera.subbiah.remote.control.ui.adapters.AppListAdapter
 import java.util.ArrayList
 
 class NotificationsFragment: Fragment(), AdapterView.OnItemClickListener,
-    CompoundButton.OnCheckedChangeListener {
+    CompoundButton.OnCheckedChangeListener, BaseFragment {
 
+    private lateinit var listView: ListView
     private lateinit var packages: ArrayList<ListModel>
     companion object {
         private const val TAG = "NotificationsFragment"
@@ -39,7 +43,7 @@ class NotificationsFragment: Fragment(), AdapterView.OnItemClickListener,
     override fun onResume() {
         super.onResume()
         if(!canAccessNotifications(this.requireActivity())) {
-            requireActivity().startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+            getNotificationAccess()
         }
     }
 
@@ -49,6 +53,16 @@ class NotificationsFragment: Fragment(), AdapterView.OnItemClickListener,
         }
 
         super.onSaveInstanceState(outState)
+    }
+
+    override fun onCommand(command: Commands, arg: String) {
+        when(command) {
+            Commands.FILTER -> {
+                (listView.adapter as AppListAdapter)
+                    .filter.filter(arg)
+            }
+        }
+
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -63,8 +77,8 @@ class NotificationsFragment: Fragment(), AdapterView.OnItemClickListener,
         initializeListView(view, packages)
     }
 
-    private fun initializeListView(view: View, installedPackages: List<ListModel>) {
-        val listView = view.findViewById<ListView>(R.id.app_list)
+    private fun initializeListView(view: View, installedPackages: ArrayList<ListModel>) {
+        listView = view.findViewById(R.id.app_list)
 
         val adapter = AppListAdapter(
             this,
@@ -94,5 +108,19 @@ class NotificationsFragment: Fragment(), AdapterView.OnItemClickListener,
         listModel.setSelected(isChecked)
 
         PkgManager.setNotificationPref(this.requireContext(), listModel.getPackageName(), isChecked)
+    }
+
+    private fun getNotificationAccess() {
+        AlertDialog.Builder(this.context)
+            .setTitle("Notification Access")
+            .setMessage(getString(R.string.notification_request_msg))
+            .setCancelable(false)
+            .setNegativeButton("No", null)
+            .setPositiveButton("Okay") { _, _ ->
+                requireActivity().startActivity(
+                    Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+            }
+            .create()
+            .show()
     }
 }

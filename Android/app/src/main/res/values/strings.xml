@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">Remote Control</string>
+    <string name="app_name">Remote Sync</string>
+    <string name="code_name">turing</string>
     <string name="logout">Logout</string>
     <string name="login">Login</string>
     <string name="base_url">https://us-central1-remote-notifications-5931d.cloudfunctions.net</string>
 
     <string name="send_message">/notifications/v0/sendMessage</string>
-    <string name="search">Search...</string>
+    <string name="search">Search</string>
+    <string name="notification_request_msg">In order to receive notifications in your other devices, notification access permission is needed.</string>
 </resources>

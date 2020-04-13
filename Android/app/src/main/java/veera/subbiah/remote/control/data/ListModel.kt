@@ -64,7 +64,7 @@ class ListModel() : Parcelable {
 
     @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun equals(other: Any?): Boolean {
-        return other != null && javaClass == other.javaClass && javaClass.cast(other).getPackageName().equals(getPackageName(), ignoreCase = true)
+        return other != null && javaClass == other.javaClass && javaClass.cast(other)?.getPackageName()?.equals(getPackageName(), ignoreCase = true)?: false
     }
 
 

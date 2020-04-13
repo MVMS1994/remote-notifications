@@ -6,8 +6,6 @@
 
     <item
         android:id="@+id/search"
-        android:icon="@android:drawable/ic_menu_search"
-        android:iconTint="@android:color/white"
         android:title="@string/search"
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView"

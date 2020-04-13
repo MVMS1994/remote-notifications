@@ -2,6 +2,6 @@
 <resources>
     <array name="tabs">
         <item>Remote Notifications</item>
-        <item>Call Settings</item>
+<!--        <item>Call Settings</item>-->
     </array>
 </resources>
