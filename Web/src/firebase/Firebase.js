@@ -51,9 +51,11 @@ exports["_requestPermission"] = function(success) {
   return function(granted) {
     return function(denied) {
       return function() {
-        Notification.requestPermission().then((permission) => {
-          (permission === 'granted')? success(granted)() : success(denied)();
-        });
+        setTimeout(function() {
+          Notification.requestPermission().then((permission) => {
+            (permission === 'granted')? success(granted)() : success(denied)();
+          });
+        }, 1000);
       }
     }
   }

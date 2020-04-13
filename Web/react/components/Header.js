@@ -115,6 +115,7 @@ class Header extends React.PureComponent {
               src="./logo.png"
               width="30"
               height="30"
+              alt="logo"
               className="d-inline-block align-top img-thumbnail"
             />
           </Navbar.Brand>

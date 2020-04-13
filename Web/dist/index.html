@@ -3,10 +3,10 @@
 <head>
   <title>Remote Notifications</title>
   <meta charset="utf-8">
+  <meta name="description" content="Receive the push notifications from mobile devices and syncs with desktop">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
 
-  <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css"></link>
   <link
     rel="stylesheet"
@@ -16,6 +16,7 @@
   <link rel="icon" href="logo.png">
 </head>
 <body>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
@@ -37,7 +38,7 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
   </script>
-  <div id="root"></div>
+  <main id="root"></main>
   <script type="text/javascript" src="./ui.js"></script>
   <script type="text/javascript" src="./app.js"></script>
 </body>
