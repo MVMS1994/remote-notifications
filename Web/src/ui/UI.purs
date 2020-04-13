@@ -3,9 +3,10 @@ module RN.UI where
 import Prelude
 import Effect (Effect)
 import Types (AppReducers, FilterTypes, Free, Notification, ReactStore)
-import Utils (liftRight)
+import Utils (liftRight, _backfillMD5)
 
 foreign import _initUI  :: AppReducers -> Effect Unit
+foreign import _uniqueByHash :: Array Notification -> Effect (Array Notification)
 foreign import getStore :: Effect ReactStore
 foreign import updateFilters :: Array Notification -> FilterTypes -> Effect FilterTypes
 
@@ -22,4 +23,6 @@ updateSignInStatus _type userName = liftRight $ do
 displayNotifications :: Array Notification -> Free Unit
 displayNotifications notifications = liftRight $ do
   store <- getStore
-  store.dispatch {"type": "DISP_NOTIF", notifications}
+  hashedNotifications <- _backfillMD5 notifications
+  uniqueNotifications <- _uniqueByHash hashedNotifications
+  store.dispatch {"type": "DISP_NOTIF", notifications: uniqueNotifications}

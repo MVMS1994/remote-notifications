@@ -48,3 +48,15 @@ exports["updateFilters"] = function(notifications) {
     }
   }
 }
+
+exports["_uniqueByHash"] = function(notifications) {
+  let rev = notifications.slice().reverse();
+  return function() {
+    return notifications.filter(function(item, index) {
+      let reverseIndex = notifications.length - 1 - index;
+      return reverseIndex === rev.findIndex(function(element) {
+        return (element.hash === item.hash);
+      });
+    });
+  }
+}

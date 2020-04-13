@@ -1,14 +1,16 @@
 package veera.subbiah.remote.control
 
 import android.content.Context
-import android.provider.Settings
-import android.util.Log
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.provider.Settings
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import veera.subbiah.remote.control.core.PkgManager
 import veera.subbiah.remote.control.data.ListModel
+import java.math.BigInteger
+import java.security.MessageDigest
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -52,3 +54,15 @@ fun getAppInfo(context: Context, packageName: String): ApplicationInfo? {
 fun getUser(): FirebaseUser? {
     return FirebaseAuth.getInstance().currentUser
 }
+
+val String.md5: String?
+    get() {
+        val md: MessageDigest = MessageDigest.getInstance("MD5")
+        val messageDigest: ByteArray = md.digest(this.toByteArray())
+        val no = BigInteger(1, messageDigest)
+        var hashText: String = no.toString(16)
+        while (hashText.length < 32) {
+            hashText = "0$hashText"
+        }
+        return hashText
+    }

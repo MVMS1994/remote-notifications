@@ -5,28 +5,37 @@ class Notifications extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      filteredMessages: [],
       pages: {
         active: 1,
         total: 1,
-        limit: 100
+        limit: 10
       }
     }
   }
 
   componentDidMount() {
-    this.updateTotalPages(this.props.messages.length);
+    this.updateState();
   }
 
   componentDidUpdate(prevProps) {
     if(prevProps.messages.length !== this.props.messages.length) {
-      this.updateTotalPages(this.props.messages.length);
+      this.updateState();
+    }
+    if(prevProps.filtered.source !== this.props.filtered.source) {
+      this.updateState();
     }
   }
 
-  updateTotalPages(length) {
+  updateState() {
+    let activeFilter = this.props.filtered.source;
     let pages = this.state.pages;
-    pages["total"] = parseInt(length / pages.limit) + 1;
-    this.setState({ pages })
+    let filteredMessages = (this.props.messages || [])
+      .filter((item) => (item.source === activeFilter || activeFilter === "_all"))
+
+    pages["total"] = parseInt(filteredMessages.length / pages.limit) + 1;
+    pages["active"] = Math.min(pages.total, pages.active);
+    this.setState({ filteredMessages, pages });
   }
 
   pageChanged(e) {
@@ -58,8 +67,8 @@ class Notifications extends React.PureComponent {
     let active = this.props.filtered.source;
     let page = this.state.pages
     return (
-      (this.props.messages || [])
-      .filter((item) => (item.source === active || active === "_all"))
+      this.state.filteredMessages
+      .slice(0)
       .reverse()
       .slice((page.active - 1) * page.limit, (page.active) * page.limit)
       .map((item, index) => {

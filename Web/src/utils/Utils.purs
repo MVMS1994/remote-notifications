@@ -17,6 +17,7 @@ import Types (Free)
 foreign import _foreignRead :: forall a. (a -> Maybe a) -> Maybe a -> String -> Foreign -> Maybe a
 foreign import _windowWrite :: String -> Foreign -> Effect Unit
 foreign import _windowRead :: forall a. String -> (a -> Maybe a) -> Maybe a -> Effect (Maybe a)
+foreign import _backfillMD5 :: forall a. Array a -> Effect (Array a)
 foreign import logAny :: forall a. a -> Unit
 
 liftLeft :: forall a. String -> Free a
@@ -70,3 +71,6 @@ runFree_ = runAff_ (\result ->
 
 forkFree :: forall a. Free a -> Free (Fiber a)
 forkFree = forkAff
+
+backfillMD5 :: forall a. Array a -> Free (Array a)
+backfillMD5 = liftRight <<< _backfillMD5

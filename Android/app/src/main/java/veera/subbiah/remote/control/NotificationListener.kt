@@ -3,7 +3,6 @@ package veera.subbiah.remote.control
 import android.app.Notification
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
-import android.util.Log
 import org.json.JSONObject
 import veera.subbiah.remote.control.core.PkgManager
 import veera.subbiah.remote.control.core.api.ApiHandler
@@ -29,6 +28,7 @@ class NotificationListener: NotificationListenerService() {
             notificationData.put("bigText", bigText)
             notificationData.put("smallText", smallText)
             notificationData.put("appName", getAppName(this, getAppInfo(this, packageName)))
+            notificationData.put("hash", notificationData.toString().md5)
             payload.put("data", notificationData)
 
             val url = getString(R.string.base_url) + getString(R.string.send_message)

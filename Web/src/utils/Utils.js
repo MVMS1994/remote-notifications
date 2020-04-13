@@ -35,3 +35,15 @@ exports["_windowRead"] = function(key) {
     }
   }
 }
+
+exports["_backfillMD5"] = function(objects) {
+  return function() {
+    let md5 = require('md5');
+    return objects.map(function(item) {
+      if(!item["hash"]) {
+        item["hash"] = md5(JSON.stringify(item));
+      }
+      return item;
+    });
+  }
+}

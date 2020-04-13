@@ -35,15 +35,21 @@ class Header extends React.PureComponent {
         </NavDropdown.Item>
       );
     });
+    let dropDown = null;
+    if(dropDownItems.length > 0) {
+      dropDown = (
+        <NavDropdown
+          bg="dark" variant="dark"
+          title="Others"
+          id="collasible-nav-dropdown">
+          {dropDownItems}
+        </NavDropdown>
+      );
+    }
 
     return (<>
       {plainItems}
-      <NavDropdown
-        bg="dark" variant="dark"
-        title="Others"
-        id="collasible-nav-dropdown">
-        {dropDownItems}
-      </NavDropdown>
+      {dropDown}
     </>);
   }
 
