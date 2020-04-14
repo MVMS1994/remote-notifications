@@ -1,12 +1,12 @@
 package veera.subbiah.remote.control
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import veera.subbiah.remote.control.core.PkgManager
 import veera.subbiah.remote.control.core.analytics.Tracker
 
-class RemoteControl: Application() {
+class RemoteControl: MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         PkgManager.init(this)

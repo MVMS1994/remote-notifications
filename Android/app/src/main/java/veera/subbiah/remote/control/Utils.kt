@@ -46,9 +46,8 @@ fun sortAppList(appList: ArrayList<ListModel>) {
 }
 
 fun getAppName(context: Context, applicationInfo: ApplicationInfo?): String {
-    return context.packageManager.getApplicationLabel(applicationInfo)?.toString()
-        ?: applicationInfo?.packageName
-        ?: "UNKNOWN APP"
+    if(applicationInfo == null) return "UNKNOWN APP"
+    return context.packageManager.getApplicationLabel(applicationInfo).toString()
 }
 
 fun getAppInfo(context: Context, packageName: String): ApplicationInfo? {
