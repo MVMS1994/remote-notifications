@@ -22,16 +22,28 @@ class Notifications extends React.PureComponent {
     if(prevProps.messages.length !== this.props.messages.length) {
       this.updateState();
     }
-    if(prevProps.filtered.source !== this.props.filtered.source) {
+    if(prevProps.sourceFilter.source !== this.props.sourceFilter.source) {
+      this.updateState();
+    }
+    if(prevProps.messageFilter !== this.props.messageFilter) {
       this.updateState();
     }
   }
 
   updateState() {
-    let activeFilter = this.props.filtered.source;
+    let activeFilter = this.props.sourceFilter.source;
     let pages = this.state.pages;
+    let filterPattern = new RegExp(this.props.messageFilter, "i");
     let filteredMessages = (this.props.messages || [])
       .filter((item) => (item.source === activeFilter || activeFilter === "_all"))
+      .filter((item) => {
+        return this.props.messageFilter.trim() == ""
+        || filterPattern.test(item.source)
+        || filterPattern.test(item.appName)
+        || filterPattern.test(item.title)
+        || filterPattern.test(item.smallText)
+        || filterPattern.test(item.bigText)
+      })
 
     pages["total"] = parseInt(filteredMessages.length / pages.limit) + 1;
     pages["active"] = Math.min(pages.total, pages.active);
@@ -64,7 +76,7 @@ class Notifications extends React.PureComponent {
   }
 
   renderNotifications() {
-    let active = this.props.filtered.source;
+    let active = this.props.sourceFilter.source;
     let page = this.state.pages
     return (
       this.state.filteredMessages

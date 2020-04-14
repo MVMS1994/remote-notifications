@@ -10,9 +10,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.filters = {
-      sources: []
+      sources: [],
+      messageText: ""
     };
     this.onOptionsSelect = this.onOptionsSelect.bind(this);
+    this.updateMessageFilter = this.updateMessageFilter.bind(this);
   }
 
   getStyles() {
@@ -51,7 +53,12 @@ class App extends React.Component {
     this.onOptionsSelect(this.props.filters.sources[0].source)
   }
 
-  findFilter(selected) {
+  updateMessageFilter(query) {
+    this.filters.messageText = query;
+    this.forceUpdate();
+  }
+
+  findSourceFilter(selected) {
     // TODO: Come up with a better logic
     let matched = this.props.filters.sources.filter(item => item.source === selected);
     return matched[0] || {}
@@ -64,7 +71,8 @@ class App extends React.Component {
           <Col className="content">
 
             <Notifications
-              filtered={this.findFilter(this.selected)}
+              messageFilter={this.filters.messageText}
+              sourceFilter={this.findSourceFilter(this.selected)}
               messages={this.props.notifications} />
 
           </Col>
@@ -87,6 +95,7 @@ class App extends React.Component {
           isLoading={this.props.isLoading}
           isSignedIn={this.props.isSignedIn}
           items={this.props.filters.sources}
+          onQuery={this.updateMessageFilter}
         />
         {this.getStyles()}
         {this.renderBody()}
