@@ -45,7 +45,7 @@ class Notifications extends React.PureComponent {
         || filterPattern.test(item.bigText)
       })
 
-    pages["total"] = parseInt((filteredMessages.length + pages.limit - 1) / pages.limit);
+    pages["total"] = Math.max(1, parseInt((filteredMessages.length + pages.limit - 1) / pages.limit));
     pages["active"] = Math.min(pages.total, pages.active);
     this.setState({ filteredMessages, pages });
   }

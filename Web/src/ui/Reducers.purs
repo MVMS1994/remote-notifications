@@ -7,7 +7,7 @@ import Effect.Console as Console
 import Foreign (Foreign, isNull, isUndefined)
 import Foreign.Generic (decode)
 import Types (AppUIState, AppAction, AppReducers)
-import Utils (hoistEff)
+import Utils (hoistEff, downloadFile)
 import RN.UI (updateFilters)
 
 initialUIState :: AppUIState
@@ -32,9 +32,15 @@ uiHandler state action = do
     "SIGNED_OUT"  -> pure state { isLoading=false, isSignedIn=false, userName="", notifications=[] }
     "DO_SIGN_OUT" -> Console.log "signing out" *> _signOut *> pure state { isLoading=true }
     "NEW_TAB"     -> (Console.log $ "new tab: " <> action.tab) *> pure state
+
     "DISP_NOTIF"  -> do
       newFilters <- updateFilters action.notifications initialUIState.filters
       pure state { notifications=action.notifications, filters=newFilters }
+
+    "EXPORT_DB"   -> do
+      downloadFile (show state.notifications) "Remote Notifications.json"
+      pure state
+
     _ -> pure state
 
 

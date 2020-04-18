@@ -13,7 +13,7 @@ class App extends React.Component {
       sources: [],
       messageText: ""
     };
-    this.onOptionsSelect = this.onOptionsSelect.bind(this);
+    this.onTabChanged = this.onTabChanged.bind(this);
     this.updateMessageFilter = this.updateMessageFilter.bind(this);
   }
 
@@ -44,13 +44,13 @@ class App extends React.Component {
     }
   }
 
-  onOptionsSelect(selected) {
+  onTabChanged(selected) {
     this.selected = selected;
     this.props.tabChanged(selected);
   }
 
   componentDidMount() {
-    this.onOptionsSelect(this.props.filters.sources[0].source)
+    this.onTabChanged(this.props.filters.sources[0].source)
   }
 
   updateMessageFilter(query) {
@@ -89,7 +89,8 @@ class App extends React.Component {
           active={this.selected}
           logo={this.props.logo}
           onSignIn={() => {}}
-          onSelect={this.onOptionsSelect}
+          onSelect={this.onTabChanged}
+          onOptionsSelect={this.props.onOptionSelected}
           username={this.getWelcomeMessage()}
           onSignOut={this.props.signout}
           isLoading={this.props.isLoading}
@@ -113,7 +114,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     signout: () => dispatch({ type: 'DO_SIGN_OUT' }),
-    tabChanged: (tab) => dispatch({ type: 'NEW_TAB', tab: tab })
+    tabChanged: (tab) => dispatch({ type: 'NEW_TAB', tab: tab }),
+    onOptionSelected: (option) => dispatch({ type: option })
   }
 }
 

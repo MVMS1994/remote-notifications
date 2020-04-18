@@ -47,3 +47,11 @@ exports["_backfillMD5"] = function(objects) {
     });
   }
 }
+
+exports["downloadFile"] = function(content) {
+  return function(fileName) {
+    return function() {
+      download(content, fileName, "application/json");
+    }
+  }
+}
