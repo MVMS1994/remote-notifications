@@ -59,15 +59,15 @@ class Header extends React.PureComponent {
   getSideButton() {
     if(this.props.isSignedIn) {
       return (
-        <Nav onSelect={this.props.onOptionsSelect}>
+        <Nav>
           <NavDropdown
             bg="dark" variant="dark"
             title="Profile" alignRight
             id="collasible-nav-dropdown">
             <NavDropdown.Item> {this.props.username} </NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item eventKey="EXPORT_DB"> Export </NavDropdown.Item>
-            <NavDropdown.Item eventKey="IMPORT_DB"> Import </NavDropdown.Item>
+            <NavDropdown.Item eventKey="EXPORT_DB" onSelect={this.props.onOptionsSelect}> Export </NavDropdown.Item>
+            <NavDropdown.Item eventKey="IMPORT_DB" onSelect={this.props.onOptionsSelect}> Import </NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item>
               <Button

@@ -1,6 +1,7 @@
 module RN.UI where
 
 import Prelude
+import Data.Array (nub, reverse)
 import Effect (Effect)
 import Types (AppReducers, FilterTypes, Free, Notification, ReactStore)
 import Utils (liftRight, _backfillMD5)
@@ -24,5 +25,5 @@ displayNotifications :: Array Notification -> Free Unit
 displayNotifications notifications = liftRight $ do
   store <- getStore
   hashedNotifications <- _backfillMD5 notifications
-  uniqueNotifications <- _uniqueByHash hashedNotifications
+  let uniqueNotifications = nub $ reverse hashedNotifications
   store.dispatch {"type": "DISP_NOTIF", notifications: uniqueNotifications}

@@ -1,19 +1,5 @@
 exports["logAny"] = console.log
 
-exports["_foreignRead"] = function(just) {
-  return function(nothing) {
-    return function(key) {
-      return function(obj) {
-        if(obj[key]) {
-          return just(obj[key]);
-        } else {
-          return nothing;
-        }
-      }
-    }
-  }
-}
-
 exports["_windowWrite"] = function(key) {
   return function(value) {
     return function() {
@@ -54,4 +40,26 @@ exports["downloadFile"] = function(content) {
       download(content, fileName, "application/json");
     }
   }
+}
+
+exports["_loadFile"] = function(error, callback) {
+  var input = document.createElement('input');
+  input.type = 'file';
+
+  function readFile(file) {
+    var reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
+
+    reader.onload = readerEvent => {
+      var content = readerEvent.target.result;
+      callback(JSON.parse(content));
+    }
+  }
+
+  input.onchange = e => {
+    var file = e.target.files[0];
+    readFile(file);
+  }
+
+  input.click();
 }

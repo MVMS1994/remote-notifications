@@ -6,19 +6,20 @@ import Data.Maybe (Maybe(..), maybe)
 import Data.Either (Either(..), hush)
 import Effect (Effect)
 import Effect.Aff (Fiber, runAff_, forkAff)
+import Effect.Aff.Compat (EffectFnAff, fromEffectFnAff)
 import Effect.Class (liftEffect)
 import Effect.Console as Console
 import Effect.Exception (error, throw)
 import Foreign (F, Foreign)
 import Foreign.Generic (class Decode, class Encode, decode, encode)
 import Localforage as DB
-import Types (Free)
+import Types (Free, Notification)
 
-foreign import _foreignRead :: forall a. (a -> Maybe a) -> Maybe a -> String -> Foreign -> Maybe a
 foreign import _windowWrite :: String -> Foreign -> Effect Unit
 foreign import _windowRead :: forall a. String -> (a -> Maybe a) -> Maybe a -> Effect (Maybe a)
 foreign import _backfillMD5 :: forall a. Array a -> Effect (Array a)
 foreign import downloadFile :: String -> String -> Effect Unit
+foreign import _loadFile :: EffectFnAff (Array Notification)
 foreign import logAny :: forall a. a -> Unit
 
 liftLeft :: forall a. String -> Free a
@@ -54,9 +55,6 @@ deleteS dbName key = do
   _    <- DB.removeItem conn key
   pure unit
 
-foreignRead :: forall a. String -> Foreign -> Maybe a
-foreignRead = _foreignRead (Just) (Nothing)
-
 windowWrite :: forall a. Encode a => String -> a -> Free Unit
 windowWrite k = liftRight <<< _windowWrite k <<< encode
 
@@ -76,5 +74,5 @@ forkFree = forkAff
 backfillMD5 :: forall a. Array a -> Free (Array a)
 backfillMD5 = liftRight <<< _backfillMD5
 
--- downloadFile :: String -> String -> Effect Unit
--- downloadFile content fileName = pure unit
+importNotifications :: Free (Array Notification)
+importNotifications = fromEffectFnAff $ _loadFile

@@ -2,12 +2,17 @@ module Types where
 
 import Prelude
 import Data.Generic.Rep (class Generic)
-import Data.Maybe (Maybe)
+import Data.Maybe (Maybe(..))
 import Data.Newtype (class Newtype)
 import Effect (Effect)
 import Effect.Aff (Aff)
 import Foreign (Foreign)
 import Foreign.Generic (class Decode, class Encode, genericEncode, genericDecode, defaultOptions, encodeJSON)
+
+foreign import _foreignRead :: forall a. (a -> Maybe a) -> Maybe a -> String -> Foreign -> Maybe a
+
+foreignRead :: forall a. String -> Foreign -> Maybe a
+foreignRead = _foreignRead (Just) (Nothing)
 
 type Free a = Aff a
 
@@ -23,6 +28,16 @@ instance decodeNotification :: Decode Notification where
   decode = genericDecode (defaultOptions {unwrapSingleConstructors = true})
 instance showNotification :: Show Notification where
   show = encodeJSON
+instance eqNotifications :: Eq Notification where
+  eq (Notification a) (Notification b) = do
+    let aHash = (foreignRead "hash" a) :: Maybe String
+    let bHash = (foreignRead "hash" b) :: Maybe String
+    eq bHash aHash
+instance ordNotifications :: Ord Notification where
+  compare (Notification a) (Notification b) = do
+    let aHash = (foreignRead "hash" a) :: Maybe String
+    let bHash = (foreignRead "hash" b) :: Maybe String
+    compare bHash aHash
 
 
 type GoogleUserProfile = {

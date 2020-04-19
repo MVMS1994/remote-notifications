@@ -2,13 +2,16 @@ module Reducers where
 
 import Prelude
 import Auth (_signOut)
+import Constants as C
+import Data.Array (concat)
+import Data.Maybe (Maybe, maybe)
 import Effect (Effect)
 import Effect.Console as Console
 import Foreign (Foreign, isNull, isUndefined)
 import Foreign.Generic (decode)
-import Types (AppUIState, AppAction, AppReducers)
-import Utils (hoistEff, downloadFile)
-import RN.UI (updateFilters)
+import Types (AppUIState, AppAction, AppReducers, Free, Notification)
+import Utils (hoistEff, downloadFile, importNotifications, loadS, saveS, runFree_)
+import RN.UI (updateFilters, displayNotifications)
 
 initialUIState :: AppUIState
 initialUIState = {
@@ -41,6 +44,8 @@ uiHandler state action = do
       downloadFile (show state.notifications) "Remote Notifications.json"
       pure state
 
+    "IMPORT_DB"   -> (runFree_ importAndDisplay) *> pure state
+
     _ -> pure state
 
 
@@ -58,3 +63,15 @@ rootReducer = {
     uiHandler state a
   )
 }
+
+importAndDisplay :: Free Unit
+importAndDisplay = do
+  loadedNotif   <- importNotifications
+  existingNotif <- fetchNotifications =<< loadS C.sDB_NAME C.sNOTIFICATIONS
+  let mergedNotif = concat [loadedNotif, existingNotif]
+  saveS C.sDB_NAME C.sNOTIFICATIONS mergedNotif
+  displayNotifications mergedNotif
+
+  where
+    fetchNotifications :: Maybe (Array Notification) -> Free (Array Notification)
+    fetchNotifications = pure <<< maybe [] identity

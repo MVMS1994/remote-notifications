@@ -31,9 +31,12 @@ class Notifications extends React.PureComponent {
   }
 
   updateState() {
+    let filterPattern = new RegExp('')
+    try {
+      filterPattern = new RegExp(this.props.messageFilter, "i");
+    } catch(err) {}
     let activeFilter = this.props.sourceFilter.source;
     let pages = this.state.pages;
-    let filterPattern = new RegExp(this.props.messageFilter, "i");
     let filteredMessages = (this.props.messages || [])
       .filter((item) => (item.source === activeFilter || activeFilter === "_all"))
       .filter((item) => {
@@ -80,8 +83,6 @@ class Notifications extends React.PureComponent {
     let page = this.state.pages
     return (
       this.state.filteredMessages
-      .slice(0)
-      .reverse()
       .slice((page.active - 1) * page.limit, (page.active) * page.limit)
       .map((item, index) => {
         return (
