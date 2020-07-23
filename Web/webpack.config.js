@@ -13,6 +13,9 @@ var baseConfig = {
   plugins: [],
   module: {
     rules: [{
+      test: /\.scss$/,
+      use: ['']
+    },{
       test: /\.css$/,
       use: ['style-loader', 'css-loader']
     }, {

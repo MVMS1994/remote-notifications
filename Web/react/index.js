@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
 import App from './containers/App'
+import './main.css'
 
 const unCurryReducers = function(reducers) {
   let reactReducer = {};
