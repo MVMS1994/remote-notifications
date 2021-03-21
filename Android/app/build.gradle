@@ -14,13 +14,13 @@ android {
             keyPassword 'M$ubbiah94'
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "veera.subbiah.remote.control"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 3
-        versionName "1.0.2"
+        targetSdkVersion 30
+        versionCode 4
+        versionName "1.0.4"
         multiDexEnabled true
     }
     buildTypes {
@@ -53,21 +53,21 @@ configurations.all {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.core:core-ktx:1.2.0"
+    implementation "androidx.core:core-ktx:1.3.2"
     implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation "com.google.android.material:material:1.1.0"
+    implementation "com.google.android.material:material:1.3.0"
 
-    implementation "com.google.android.gms:play-services-auth:18.0.0"
-    implementation "com.google.firebase:firebase-analytics:17.3.0"
-    implementation "com.google.firebase:firebase-crashlytics:17.0.0-beta04"
-    implementation "com.google.firebase:firebase-auth:19.3.0"
+    implementation "com.google.android.gms:play-services-auth:19.0.0"
+    implementation "com.google.firebase:firebase-analytics:18.0.2"
+    implementation "com.google.firebase:firebase-crashlytics:17.4.0"
+    implementation "com.google.firebase:firebase-auth:20.0.3"
     implementation "com.firebaseui:firebase-ui-auth:4.3.1"
-    implementation "com.google.firebase:firebase-perf:19.0.6"
+    implementation "com.google.firebase:firebase-perf:19.1.1"
 
-    implementation "androidx.appcompat:appcompat:1.1.0"
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.appcompat:appcompat:1.2.0"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     implementation "com.squareup.okhttp3:okhttp:4.3.1"
