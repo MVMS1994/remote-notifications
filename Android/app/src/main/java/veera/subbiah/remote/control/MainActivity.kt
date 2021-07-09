@@ -1,17 +1,30 @@
 package veera.subbiah.remote.control
 
+import android.app.Activity
 import android.content.Intent
+import android.content.IntentSender.SendIntentException
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.widget.ViewPager2
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallState
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.tasks.OnSuccessListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_main.*
 import veera.subbiah.remote.control.core.analytics.Tracker
@@ -19,12 +32,15 @@ import veera.subbiah.remote.control.core.auth.FirebaseAuthAdapter
 import veera.subbiah.remote.control.data.Commands
 import veera.subbiah.remote.control.ui.adapters.ViewPagerAdapter
 
-
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+
 
     companion object {
         @Suppress("unused")
         private const val TAG = "MainActivity"
+
+        private var appUpdateManager: AppUpdateManager? = null
+        private val RC_APP_UPDATE = 100
     }
 
     private lateinit var toolbar: Toolbar
@@ -39,6 +55,91 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         initToolbar()
         initTabs()
+
+        appUpdateManager = AppUpdateManagerFactory.create(this)
+        appUpdateManager!!.getAppUpdateInfo()
+            .addOnSuccessListener(object : OnSuccessListener<AppUpdateInfo?> {
+
+                override fun onSuccess(result: AppUpdateInfo?) {
+                    if (result!!.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                        if(result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                            try {
+                                appUpdateManager!!.startUpdateFlowForResult(
+                                    result,
+                                    AppUpdateType.FLEXIBLE,
+                                    this@MainActivity,
+                                    RC_APP_UPDATE
+                                )
+                                appUpdateManager!!.registerListener(installStateUpdatedListener)
+                            } catch (e: SendIntentException) {
+                                e.printStackTrace()
+                            }
+                        }
+                         else if(result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                            try {
+                                appUpdateManager!!.startUpdateFlowForResult(
+                                    result,
+                                    AppUpdateType.IMMEDIATE,
+                                    this@MainActivity,
+                                    RC_APP_UPDATE
+                                )
+                            } catch (e: SendIntentException) {
+                                e.printStackTrace()
+                            }
+                        }
+                    }
+                }
+            })
+    }
+
+    private val installStateUpdatedListener: InstallStateUpdatedListener =
+        object : InstallStateUpdatedListener {
+            override fun onStateUpdate(state: InstallState) {
+                if (state.installStatus() == InstallStatus.DOWNLOADED) {
+                    showCompletedUpdate()
+                }
+            }
+        }
+
+    private fun showCompletedUpdate() {
+        val snackbar = Snackbar.make(
+            findViewById(android.R.id.content),
+            "Update downloaded",
+            Snackbar.LENGTH_INDEFINITE
+        )
+        snackbar.setAction(
+            "Install"
+        ) { appUpdateManager!!.completeUpdate() }
+        snackbar.show()
+    }
+
+    override fun onStop() {
+        if (appUpdateManager != null) {
+            appUpdateManager!!.unregisterListener(installStateUpdatedListener)
+        }
+        super.onStop()
+    }
+
+    override fun onResume() {
+        appUpdateManager!!.getAppUpdateInfo()
+            .addOnSuccessListener(object : OnSuccessListener<AppUpdateInfo?> {
+                override fun onSuccess(result: AppUpdateInfo?) {
+                    if(result!!.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                        try {
+                            appUpdateManager!!.startUpdateFlowForResult(
+                                result,
+                                AppUpdateType.FLEXIBLE,
+                                this@MainActivity,
+                                RC_APP_UPDATE
+                            )
+                            appUpdateManager!!.registerListener(installStateUpdatedListener)
+                        } catch (e: SendIntentException) {
+                            e.printStackTrace()
+                        }
+                    }
+                }
+            })
+        super.onResume()
     }
 
     private fun initToolbar() {
@@ -129,6 +230,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RC_APP_UPDATE && resultCode != Activity.RESULT_OK) {
+            Toast.makeText(this, "Update cancelled", Toast.LENGTH_SHORT).show()
+        }
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == FirebaseAuthAdapter.RC_SIGN_IN) {
